@@ -108,3 +108,6 @@ While a timer runs: red sticky bar on all views (grey when paused), highlighted 
 
 ## Notes on Board cards
 Cards with notes get a yellow left border and a 📝 n badge; the 📝 button (or badge) toggles the task's note panel (`bnote()`, state `S.bOpen`), which reuses `tnotes()` — same notes as on Sprints and the notes pad.
+
+## Board columns
+The Board always has three columns: New (category Proposed), Active (InProgress) and Closed (Resolved/Completed). A card whose DevOps status is something else (Impeded, On Hold, Resolved ...) sits in the column of its category and shows the real status as a small tag. Dropping a card in a column sets the first matching DevOps state of the item's type (preferring a state literally named New/Active/Closed) — see `targetState()` and `kDrop()`. Removed items are hidden.
