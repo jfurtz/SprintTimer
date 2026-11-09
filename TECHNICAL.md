@@ -147,3 +147,7 @@ Notes belong to a task (`itemId`) or sit in the Inbox (no `itemId`). Fields: `id
 ## Central sprint selector
 - `sprintSel()` renders one Sprint dropdown in the top bar, left of the user scope selector (`topbar()`). It sets `S.sprint`, which Timer tiles, Sprints, Board and Reports (sprint period) all use.
 - The per-page sprint dropdowns on Sprints, Board and Reports were removed, so the sprint is chosen in one place only.
+
+## Active project in the top bar
+- `projSel()` shows which DevOps project is active, first in the top bar (left of the sprint and user selectors).
+- With two or more saved projects (`S.profiles`) it is a dropdown that calls `profSwitch()`; with one it is a label with the project name (tooltip `org/project`). It is hidden when DevOps is not connected.
