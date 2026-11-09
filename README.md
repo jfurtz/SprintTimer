@@ -61,3 +61,14 @@ Want to try it without DevOps? Open `demo/timetracker.html` in a browser (demo d
 | `index.html` | The whole app (vanilla JS, one file) |
 | `demo/timetracker.html` | Standalone demo without DevOps |
 | `TECHNICAL.md` | How it works in detail |
+
+## Security and privacy
+
+- No account, no cloud: the app runs on `localhost` only and talks only to `dev.azure.com`.
+- Your **Personal Access Token** is kept in Windows Credential Manager, never in a file or in this repository. Use a PAT with the minimum scope (*Work Items – Read & Write*) and a short expiry.
+- Time entries are stored locally in `%APPDATA%\SprintTimeTracker\data.json` (excluded from git).
+- If a PAT is ever shared or committed by mistake, revoke it in Azure DevOps straight away.
+
+## Contributing
+
+This repository is published read-only. Issues and pull requests are not accepted. You are welcome to fork it under the MIT license (see `LICENSE`).
