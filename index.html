@@ -3,9 +3,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sprint Time Tracker</title>
 <style>
-:root{--bg:#f2f6f8;--card:#fff;--tx:#2c3e50;--mu:#677c89;--bd:#dde5ea;--ac:#03a9f4;--ac2:#0288d1;--rd:#ef5350;--gr:#43a047;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#12181d;--card:#1b242b;--tx:#e3ebf0;--mu:#8ea2af;--bd:#2c3943}}
-:root[data-theme=dark]{color-scheme:dark;--bg:#12181d;--card:#1b242b;--tx:#e3ebf0;--mu:#8ea2af;--bd:#2c3943}
+:root{--bg:#F4F6F9;--card:#fff;--tx:#14171F;--mu:#5B6472;--bd:#E4E7EC;--ac:#0B6BCB;--ac2:color-mix(in srgb,var(--ac) 82%,#000);--rd:#D92D20;--gr:#2E7D32;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){color-scheme:dark;--bg:#12181d;--card:#1b242b;--tx:#e3ebf0;--mu:#8ea2af;--bd:#2c3943;--ac2:color-mix(in srgb,var(--ac) 65%,#fff)}}
+:root[data-theme=dark]{color-scheme:dark;--bg:#12181d;--card:#1b242b;--tx:#e3ebf0;--mu:#8ea2af;--bd:#2c3943;--ac2:color-mix(in srgb,var(--ac) 65%,#fff)}
 *{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
 body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;min-height:100vh}
 nav{width:200px;background:var(--card);border-right:1px solid var(--bd);padding:16px 10px;flex-shrink:0}
@@ -33,10 +33,46 @@ table{width:100%;border-collapse:collapse}td,th{padding:8px 10px;text-align:left
 .chart{display:flex;align-items:flex-end;gap:10px;height:120px;padding-top:8px}.chart div{flex:1;text-align:center;font-size:11px;color:var(--mu)}.chart b{display:block;background:var(--ac);border-radius:3px 3px 0 0;margin-bottom:4px}
 .msg{margin-top:8px;color:var(--mu)}.err{color:var(--rd)}
 @media(max-width:700px){body{flex-direction:column}nav{width:100%;display:flex;overflow-x:auto;padding:8px;border:0;border-bottom:1px solid var(--bd)}.logo{padding:8px}nav a{white-space:nowrap}main{padding:12px}}
+body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+nav{width:84px;padding:18px 8px;display:flex;flex-direction:column;align-items:center;gap:6px;position:sticky;top:0;height:100vh;align-self:flex-start;overflow-y:auto}
+nav .logo{width:40px;height:40px;border-radius:12px;background:var(--ac);display:flex;align-items:center;justify-content:center;margin:0 0 14px;padding:0;color:#fff}
+nav a{position:relative;width:68px;padding:10px 0 8px;margin:0;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;font-weight:500;text-align:center}
+nav a:hover{background:var(--bg)}nav a.on{background:color-mix(in srgb,var(--ac) 12%,var(--card));color:var(--ac)}
+nav .sp{flex:1}
+nav button#th{width:68px;margin:0!important;border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--mu);padding:8px 0;border-radius:12px}nav button#th:hover{background:var(--bg)}
+nav a.live::after{position:absolute;top:8px;right:14px;margin:0}
+main{padding:22px 36px 48px;max-width:1440px}
+#top{display:flex;justify-content:flex-end;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}#top:empty{display:none}
+h2{font-size:22px;font-weight:700;letter-spacing:-.01em}
+.card,.day,.bar,.pad{border-radius:14px}
+input,select,textarea,button{border-radius:10px}
+.clock,.rb .clock{font-variant-numeric:tabular-nums}
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.tile{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px 16px}.tile b{display:block;font-size:26px;margin-top:4px;font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:-6px 0 16px}
+.chip{display:inline-flex;align-items:center;gap:6px;max-width:300px;border-radius:999px;padding:6px 12px;background:var(--card);border:1px solid var(--bd)}.chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.chip:hover{border-color:var(--ac)}.chip svg{flex:none;color:var(--ac)}
+.star.on{color:#E0A800}
+.sc{display:flex;align-items:center;gap:10px;width:340px;max-width:100%;height:40px;padding:0 12px;color:var(--mu);background:var(--card)}.sc span{flex:1;text-align:left}
+kbd{font:inherit;font-size:12px;border:1px solid var(--bd);border-radius:6px;padding:2px 6px;background:var(--bg)}
+.st{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;border:1px solid var(--bd);background:var(--card)}.st::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gr)}.st.warn::before{background:#E0A800}.st.bad{color:var(--rd);border-color:var(--rd)}.st.bad::before{background:var(--rd)}
+.syncbar{display:flex;gap:14px;align-items:flex-start;justify-content:space-between;background:color-mix(in srgb,var(--rd) 8%,var(--card));border:1px solid var(--rd);border-radius:14px;padding:12px 16px;margin-bottom:14px}.syncbar ul{margin:6px 0 0;padding-left:18px;color:var(--mu);font-size:13px}
+#pal{position:fixed;inset:0;z-index:80;background:rgba(20,23,31,.45);display:flex;align-items:flex-start;justify-content:center;padding-top:12vh}
+.pbox{width:680px;max-width:94vw;background:var(--card);border:1px solid var(--bd);border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.35);overflow:hidden}
+.pbox>input{width:100%;border:0;border-bottom:1px solid var(--bd);border-radius:0;padding:16px 20px;font-size:18px;background:transparent}.pbox>input:focus{outline:none}
+.pls{max-height:50vh;overflow:auto;padding:8px}.ph{font-size:12px;font-weight:600;color:var(--mu);padding:8px 12px 4px}
+.pit{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;cursor:pointer}.pit.on{background:color-mix(in srgb,var(--ac) 12%,var(--card))}.pit .hint{margin-left:auto;font-size:12px;color:var(--mu);white-space:nowrap}
+.pft{display:flex;gap:18px;padding:10px 20px;border-top:1px solid var(--bd);background:var(--bg);font-size:12px;color:var(--mu);flex-wrap:wrap}
+.mback{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:70;padding:16px}.mbox{width:480px;max-width:100%;margin:0}.mact{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px}
+.row2{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}.btn{display:inline-block;padding:7px 12px;border:1px solid var(--bd);border-radius:10px;cursor:pointer;background:var(--card)}
+.swc{width:30px;height:30px;border-radius:50%;border:3px solid var(--card);box-shadow:0 0 0 1px var(--bd);padding:0}.swc.on{box-shadow:0 0 0 2px var(--tx)}
+.fx{padding:0 0 10px 50px;color:var(--mu);display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.wk th,.wk td{padding:6px;text-align:center}.wk th:first-child,.wk td.wl{text-align:left;min-width:240px}.wk .wc{width:74px;text-align:center;padding:7px 4px}.wk .wc.td{border-color:var(--ac)}.wk tfoot td{font-weight:600;border-top:2px solid var(--bd)}.wk th.td{color:var(--ac)}.wtot{white-space:nowrap}
+@media(hover:hover){body.hv .day .row:not(:hover):not(:focus-within) .qa{opacity:0}}
+@media(max-width:900px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){nav{width:100%;height:auto;position:static;flex-direction:row;overflow-x:auto;padding:8px}nav .logo,nav .sp{display:none}nav a,nav button#th{flex:none}main{padding:12px}.sc{width:100%}}
 </style></head><body>
-<nav><div class="logo">⏱ SprintTracker</div>
-<a data-v="track">Time tracker</a><a data-v="sprints">Sprints</a><a data-v="board">Board</a><a data-v="report">Reports</a><a data-v="settings">Settings</a><button class="ic" id="th" onclick="theme()" style="margin-top:12px;width:100%;text-align:left"></button></nav>
-<main id="app"></main>
+<nav aria-label="Main"><div class="logo" title="Sprint Time Tracker"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9.5 2.5h5"/></svg></div><a data-v="track" title="Time tracker"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2"/></svg>Timer</a><a data-v="week" title="Week timesheet"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Week</a><a data-v="sprints" title="Sprints"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg>Sprints</a><a data-v="board" title="Board"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="10" y="4" width="5" height="10" rx="1.5"/><rect x="17" y="4" width="4" height="13" rx="1.5"/></svg>Board</a><a data-v="report" title="Reports"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>Reports</a><span class="sp"></span><a data-v="settings" title="Settings"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Settings</a><button class="ic" id="th" onclick="theme()"></button></nav>
+<main><div id="top"></div><div id="app"></div></main>
 <script>
 const $=s=>document.querySelector(s);
 const demo=[
@@ -74,17 +110,206 @@ const fm=m=>Math.floor(m/60)+"h "+String(m%60).padStart(2,"0")+"m";
 const mig=()=>{S.entries=S.entries.map(e=>e.min!=null?e:{id:e.id,itemId:e.itemId,desc:e.desc,date:dayKey(e.start),min:Math.max(1,Math.round((e.end-e.start)/6e4))})};mig();
 function add(itemId,desc,date,min){const x=S.entries.find(e=>e.date==date&&String(e.itemId)==String(itemId)&&e.desc==desc);if(x)x.min+=min;else S.entries.push({id:Date.now()*1000+Math.floor(Math.random()*1000),itemId,desc,date,min})}
 const opts=sel=>sprints().map(sp=>`<optgroup label="${esc(sp)}">`+S.items.filter(i=>i.sprint==sp&&(canLog(i)||i.id==sel)).map(i=>`<option value="${i.id}" ${i.id==sel?"selected":""}>#${i.id} ${esc(i.title)} ${par(i)?" ‹ "+esc(par(i).title):""}${i.who?" – "+esc(i.who):""} (${(used(i)/60).toFixed(1)}/${i.est||0} h)</option>`).join("")+"</optgroup>").join("");
-function note(t){let n=$("#note");if(!n){n=document.createElement("div");n.id="note";n.className="card";n.style.cssText="position:fixed;right:16px;bottom:16px;z-index:60;margin:0;max-width:320px;border-color:var(--rd);color:var(--rd)";document.body.appendChild(n)}n.textContent=t;n.style.display="block";clearTimeout(n._t);n._t=setTimeout(()=>{n.style.display="none"},4000)}
+function note(t){let n=$("#note");if(!n){n=document.createElement("div");n.id="note";n.className="card";n.style.cssText="position:fixed;right:16px;bottom:110px;z-index:60;margin:0;max-width:320px;border-color:var(--rd);color:var(--rd)";document.body.appendChild(n)}n.textContent=t;n.style.display="block";clearTimeout(n._t);n._t=setTimeout(()=>{n.style.display="none"},4000)}
 const lk=i=>i&&i.az&&S.cfg.org&&S.cfg.project?` <a href="https://dev.azure.com/${encodeURIComponent(S.cfg.org)}/${encodeURIComponent(S.cfg.project)}/_workitems/edit/${i.id}" target="_blank" rel="noopener" title="Open in DevOps" style="margin-left:6px;color:var(--ac2);text-decoration:none">↗</a>`:"";
 const elapsed=()=>S.run?(S.run.acc||0)+(S.run.paused?0:Date.now()-S.run.start):0;
 function pause(){const r=S.run;if(!r)return;if(r.paused){r.start=Date.now();r.paused=false}else{r.acc=(r.acc||0)+Date.now()-r.start;r.paused=true}save();render()}
 function start(itemId,desc){if(!itemId||!item(itemId)||!canLog(item(itemId)))return note("Pick a task before starting the timer.");if(S.run){stop();if(S.run)return}S.run={itemId:itemId||"",desc:desc||(item(itemId)?.title||""),start:Date.now(),t0:Date.now(),acc:0,paused:false};save();render();activate(itemId)}
 function stop(){if(!S.run)return;if(!S.run.itemId||!item(S.run.itemId))return note("Pick a task before stopping, so the time is logged on it.");const sid=S.run.itemId;add(S.run.itemId,S.run.desc,dayKey(S.run.t0||S.run.start),Math.max(1,Math.round(elapsed()/6e4)));S.run=null;setTimeout(()=>sync(true,sid),0);save();render()}
+/*FEAT-BEGIN*/
+const FD={board:1,reports:1,week:1,notes:1,runbar:1,autoActive:1,overBudget:1,pins:1,palette:1,hoverActions:1,longTimer:1,backdate:0,reminder:0},F=k=>(S.feat&&k in S.feat)?!!S.feat[k]:!!FD[k];
+const FL=[
+["board","Board","Kanban board with New / Active / Closed columns. Drag a card to change its status in DevOps."],
+["week","Week view","Timesheet grid with tasks in rows and days in columns. Type time straight into a day (1:30, 90m or 1.5h)."],
+["reports","Reports and calendar","Reports for a sprint, week, month or custom period, grouped by task, person, user story or day. Calendar and CSV export."],
+["notes","Notes","Sticky notes pad and notes on tasks, logs and board cards."],
+["runbar","Running-timer bar","Red bar on every page while a timer is running, with pause and stop."],
+["autoActive","Set task Active automatically","When a timer starts or time is added to a New task, move it to Active in DevOps."],
+["overBudget","Over-budget warning","Mark tasks where logged time is above the Original Estimate."],
+["pins","Pinned and recent tasks","Star tasks to pin them. Pinned and recent tasks appear as one-click start buttons on the Timer page."],
+["palette","Command palette (Ctrl+K)","Search tasks and run actions from the keyboard."],
+["hoverActions","Row actions on hover","On Sprints, the Add h/m controls appear when you point at a row. Turn off to always show them."],
+["backdate","Choose a date when adding time","Adds a date field to Add h/m, so you can log time for an earlier day."],
+["longTimer","Forgotten-timer check","Asks what to do when a timer has run for more than 8 hours, or when the computer was away while it ran."],
+["reminder","Daily reminder","Reminds you if you have logged less than your daily goal by a set time (weekdays)."]];
+const ACC=[["Blue","#0B6BCB"],["Teal","#0E7C86"],["Green","#2E7D32"],["Purple","#6B46E5"],["Pink","#C2185B"],["Orange","#C2570C"]];
+const ic=(p,s=22)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+const PLAY=ic('<path d="M7 4v16l13-8z" fill="currentColor"/>',14),SEARCH=ic('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',16);
+const STAR=on=>`<svg width="16" height="16" viewBox="0 0 24 24" fill="${on?"currentColor":"none"}" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>`;
+function setF(k,v){S.feat=S.feat||{};S.feat[k]=!!v;save();if(k==="reminder"&&v){try{window.Notification&&Notification.permission==="default"&&Notification.requestPermission()}catch(e){}}render()}
+function info(t){let n=$("#info");if(!n){n=document.createElement("div");n.id="info";n.className="card";n.style.cssText="position:fixed;right:16px;bottom:16px;z-index:60;margin:0;max-width:340px";document.body.appendChild(n)}n.textContent=t;n.style.display="block";clearTimeout(n._t);n._t=setTimeout(()=>{n.style.display="none"},3500)}
+
+/* ---------- dates and durations ---------- */
+const addD=(d,n)=>{const x=new Date(d+"T12:00:00");x.setDate(x.getDate()+n);return dayKey(x)};
+const wkStart=d=>{const w=(new Date(d+"T12:00:00").getDay()+6)%7;return addD(d,-w)};
+const isoWeek=d=>{const x=new Date(d+"T12:00:00");x.setDate(x.getDate()+3-(x.getDay()+6)%7);const y=new Date(x.getFullYear(),0,4);return 1+Math.round(((x-y)/864e5-3+(y.getDay()+6)%7)/7)};
+function parseDur(s){s=String(s||"").trim().toLowerCase().replace(",",".");if(!s)return 0;let m=s.match(/^(\d+):(\d{1,2})$/);if(m)return+m[1]*60+ +m[2];
+ m=s.match(/^(\d+(?:\.\d+)?)\s*h(?:ours?)?(?:\s*(\d+)\s*m?(?:in)?)?$/);if(m)return Math.round(+m[1]*60+(+m[2]||0));
+ m=s.match(/^(\d+)\s*m(?:in)?$/);if(m)return+m[1];
+ m=s.match(/^\d+(?:\.\d+)?$/);if(m){const n=+s;return Math.round(n<=24?n*60:n)}return null}
+const fmCell=m=>m?Math.floor(m/60)+":"+String(m%60).padStart(2,"0"):"";
+
+/* ---------- pins and recent ---------- */
+const isPin=id=>(S.pins||[]).map(Number).includes(+id);
+function togPin(id){S.pins=S.pins||[];const k=S.pins.map(Number).indexOf(+id);if(k<0)S.pins.push(+id);else S.pins.splice(k,1);save();render()}
+const starBtn=id=>F("pins")?`<button class="ic star${isPin(id)?" on":""}" title="${isPin(id)?"Unpin":"Pin to the Timer page"}" aria-label="${isPin(id)?"Unpin":"Pin"} task ${id}" onclick="togPin(${id})">${STAR(isPin(id))}</button>`:"";
+function recentIds(){const o=[];S.entries.slice().sort((a,b)=>b.id-a.id).forEach(e=>{const i=item(e.itemId);if(i&&canLog(i)&&!o.includes(i.id)&&!isPin(i.id))o.push(i.id)});return o.slice(0,4)}
+function quickStrip(){if(!F("pins"))return"";const P=(S.pins||[]).map(item).filter(i=>i&&canLog(i)),R=recentIds().map(item);if(!P.length&&!R.length)return"";
+ const ch=(i,p)=>`<button class="chip" title="Start timer on #${i.id} ${esc(i.title)}" onclick="start(${i.id})">${p?STAR(1):PLAY}<span>#${i.id} ${esc(i.title)}</span></button>`;
+ return`<div class="chips"><span class="mu">Start:</span>${P.map(i=>ch(i,1)).join("")}${R.map(i=>ch(i,0)).join("")}</div>`}
+
+/* ---------- stat tiles ---------- */
+function tiles(){const t=dayKey(Date.now()),w=wkStart(t),W=S.entries.filter(e=>e.date>=w&&e.date<=addD(w,6)).reduce((a,e)=>a+e.min,0),T=S.entries.filter(e=>e.date==t).reduce((a,e)=>a+e.min,0),
+ its=S.items.filter(i=>i.sprint==S.sprint&&canLog(i)),rem=its.reduce((a,i)=>a+Math.max(0,(+i.est||0)*60-used(i)),0),ip=its.filter(i=>catOf(i)===1).length,
+ c=(l,v)=>`<div class="tile"><div class="mu">${l}</div><b>${v}</b></div>`;
+ return`<div class="tiles">${c("Today",fm(T))}${c("This week",fm(W))}${c("Remaining in sprint",fm(Math.round(rem)))}${c("Tasks in progress",ip)}</div>`}
+
+/* ---------- top bar and sync queue ---------- */
+const azOn=()=>typeof azReady==="function"&&azReady()&&typeof pend==="function";
+function topbar(){let st="";if(azOn()){const P=pend(),E=P.filter(x=>(S.syncErr||{})[x.i.id]);st=E.length?`<button class="st bad" onclick="sync()" title="Retry now">Sync failed (${E.length})</button>`:P.length?`<span class="st warn">${P.length} pending</span>`:`<span class="st ok">Synced</span>`}
+ return`${F("palette")?`<button class="sc" onclick="palOpen()" aria-label="Search or run a command">${SEARCH}<span>Search or run a command</span><kbd>Ctrl K</kbd></button>`:""}${st}`}
+function syncBar(){if(!azOn())return"";const P=pend().filter(x=>(S.syncErr||{})[x.i.id]);if(!P.length)return"";const n=P.reduce((a,x)=>a+x.d,0);
+ return`<div class="syncbar" role="alert"><div><b>${P.length==1?"1 task is":P.length+" tasks are"} not synced to DevOps</b> <span class="mu">(${n<0?"-":""}${fm(Math.abs(n))} waiting)</span><div class="mu" style="font-size:13px">Your time is saved here and is retried automatically every minute.</div><ul>${P.slice(0,4).map(x=>`<li>#${x.i.id} ${esc(x.i.title)}: ${esc(S.syncErr[x.i.id])}</li>`).join("")}${P.length>4?`<li>and ${P.length-4} more</li>`:""}</ul></div><button class="pri" onclick="sync()">Retry now</button></div>`}
+let hadErr=false;
+setInterval(()=>{if(azOn()&&Object.keys(S.syncErr||{}).length&&!syncing)sync(true)},6e4);
+addEventListener("online",()=>{if(azOn()&&pend().length)sync(true)});
+
+/* ---------- forgotten / away timer ---------- */
+let lastTick=Date.now(),fx=null;
+function longChk(){const now=Date.now(),gap=now-lastTick;lastTick=now;const r=S.run;if(!F("longTimer")||!r||r.paused||fx)return;
+ if(gap>18e4){fx={kind:"away",gap};render();return}
+ if(!r.warned&&elapsed()>288e5){r.warned=1;save();fx={kind:"long"};render()}}
+function fixModal(){if(!fx||!S.run)return"";const el=elapsed(),box=h=>`<div class="mback"><div class="card mbox" role="dialog" aria-modal="true" aria-label="Timer check">${h}</div></div>`;
+ if(fx.kind==="away"){const g=Math.max(1,Math.round(fx.gap/6e4));return box(`<h2>Were you away?</h2><p>The timer kept running while this computer seemed to be inactive for <b>${fm(g)}</b>. Elapsed time is now <b>${dur(el)}</b>.</p><div class="mact"><button class="pri" onclick="fixDo('keep')">Keep all time</button><button onclick="fixDo('trim')">Remove the ${fm(g)}</button><button onclick="fixDo('stoptrim')">Remove it and stop</button></div>`)}
+ const m=Math.round(el/6e4);return box(`<h2>Forgotten timer?</h2><p>The timer has been running for <b>${dur(el)}</b>. Keep it running, or stop it and log a different amount:</p><div class="mact"><input type="number" id="fixh" min="0" value="${Math.floor(m/60)}" style="width:76px" aria-label="Hours"> h <input type="number" id="fixm" min="0" max="59" value="${m%60}" style="width:76px" aria-label="Minutes"> m</div><div class="mact"><button class="pri" onclick="fixDo('keep')">Keep running</button><button onclick="fixDo('stoplog')">Stop and log this time</button></div>`)}
+function fixDo(a){const f=fx,r=S.run;fx=null;if(!r){render();return}
+ if(a==="trim"||a==="stoptrim"){r.start=Math.min(Date.now(),r.start+f.gap)}
+ if(a==="stoplog"){const m=Math.max(1,Math.round((+$("#fixh").value||0)*60+(+$("#fixm").value||0)));r.acc=m*6e4;r.start=Date.now();r.paused=false}
+ save();if(a==="stoptrim"||a==="stoplog")stop();else render()}
+
+/* ---------- backup, export, import ---------- */
+function snap(){const x=JSON.parse(JSON.stringify(S));if(x.cfg)x.cfg.pat="";return x}
+const baks=()=>{try{return JSON.parse(localStorage.getItem("st1bak")||"[]")}catch(e){return[]}};
+function autoBackup(){try{if(!S.entries||!S.items)return;let L=baks();const n=Date.now();if(!L.length||n-L[0].t>20*36e5){L.unshift({t:n,n:S.entries.length,d:JSON.stringify(snap())});L=L.slice(0,7);localStorage.setItem("st1bak",JSON.stringify(L))}}catch(e){}}
+setTimeout(autoBackup,4000);setInterval(autoBackup,6e5);
+function exportData(){const a=document.createElement("a");a.href="data:application/json;charset=utf-8,"+encodeURIComponent(JSON.stringify(snap(),null,1));a.download="sprint-time-tracker-backup-"+dayKey(Date.now())+".json";a.click()}
+function loadSnap(text){let x;try{x=JSON.parse(text);if(!x||!Array.isArray(x.entries)||!Array.isArray(x.items))throw 0}catch(e){note("That file is not a valid backup.");return false}
+ if(!confirm("Replace all current data with this backup?\n"+x.entries.length+" log entries, "+x.items.length+" work items."))return false;
+ const cfg=S.cfg;for(const k of Object.keys(S))delete S[k];Object.assign(S,x);S.cfg=Object.assign({org:"",project:"",team:"",pat:""},x.cfg&&x.cfg.org?x.cfg:cfg);S.cfg.pat="";S.pushed=S.pushed||{};if(typeof mig==="function")mig();save();applyTheme();render();info("Backup restored.");return true}
+function importData(inp){const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>loadSnap(String(r.result));r.readAsText(f);inp.value=""}
+function restoreBak(k){const b=baks()[k];if(b)loadSnap(b.d)}
+
+/* ---------- projects (saved connection profiles) ---------- */
+function profSave(){const c={org:$("#o").value.trim(),project:$("#p").value.trim(),team:$("#t").value.trim()};if(!c.org||!c.project)return note("Enter organization and project first.");
+ const nm=$("#pn").value.trim()||c.project;S.profiles=S.profiles||[];const ex=S.profiles.find(p=>p.id==S.pid&&p.org==c.org&&p.project==c.project);if(ex)Object.assign(ex,c,{name:nm});else{const p=Object.assign({id:Date.now(),name:nm},c);S.profiles.push(p);S.pid=p.id}save();render();info("Project saved.")}
+function profDel(){S.profiles=(S.profiles||[]).filter(p=>p.id!=S.pid);S.pid=null;save();render()}
+function profSwitch(id){const p=(S.profiles||[]).find(x=>x.id==id);if(!p)return;S.cfg={org:p.org,project:p.project,team:p.team,pat:""};S.pid=p.id;S.syncErr={};save();render();if(typeof hasPat!=="undefined"&&hasPat)fetchAz(true)}
+function profBox(){const P=S.profiles||[];return`<div class="card"><b>Projects</b><div class="mu" style="margin:4px 0 8px">Save the organization, project and team below as a profile and switch between them. Your PAT is shared by all profiles on this computer.</div><div class="row2"><select id="pf" aria-label="Saved projects" onchange="profSwitch(this.value)"><option value="">${P.length?"Switch project…":"No saved projects yet"}</option>${P.map(p=>`<option value="${p.id}" ${p.id==S.pid?"selected":""}>${esc(p.name)} (${esc(p.org)}/${esc(p.project)})</option>`).join("")}</select><input id="pn" placeholder="Name for the settings below"><button onclick="profSave()">Save</button>${S.pid?`<button onclick="profDel()">Delete selected</button>`:""}</div></div>`}
+
+/* ---------- daily reminder ---------- */
+function remChk(){if(!F("reminder"))return;const n=new Date(),t=dayKey(n),[h,m]=(S.rt||"16:00").split(":").map(Number);if(n.getDay()%6===0||S.remDay===t||n.getHours()*60+n.getMinutes()<h*60+m)return;
+ const lg=S.entries.filter(e=>e.date==t).reduce((a,e)=>a+e.min,0)+(S.run?Math.round(elapsed()/6e4):0),goal=Math.round((+S.rh||7.5)*60);if(lg>=goal)return;S.remDay=t;save();
+ const msg="You have logged "+fm(lg)+" today (goal "+fm(goal)+").";try{if(window.Notification&&Notification.permission==="granted"){new Notification("Sprint Time Tracker",{body:msg});return}}catch(e){}info(msg)}
+setInterval(remChk,3e4);setTimeout(remChk,5000);
+
+/* ---------- accent and theme ---------- */
+function applyAccent(){document.documentElement.style.setProperty("--ac",S.acc||ACC[0][1])}
+function setAcc(c){S.acc=c;save();applyAccent();render()}
+function setTheme(v){S.theme=v;save();applyTheme();render()}
+function applyTheme(){const t=S.theme||"",r=document.documentElement;if(t)r.dataset.theme=t;else delete r.dataset.theme;const b=$("#th"),n=({"":"Auto",dark:"Dark",light:"Light"})[t];if(b){b.title="Theme: "+n+" (click to change)";b.innerHTML=ic('<circle cx="12" cy="12" r="9"/><path d="M12 3v18" /><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/>')+"<span>"+n+"</span>"}applyAccent()}
+
+/* ---------- settings ---------- */
+function vSettings(){const th=S.theme||"",ac=S.acc||ACC[0][1],B=baks();
+ const extra={reminder:F("reminder")?`<div class="fx">Remind me after <input type="time" value="${esc(S.rt||"16:00")}" aria-label="Reminder time" onchange="S.rt=this.value;save()"> if I have logged less than <input type="number" min="1" max="24" step="0.5" style="width:76px" value="${+S.rh||7.5}" aria-label="Daily goal in hours" onchange="S.rh=+this.value||7.5;save()"> hours.</div>`:""};
+ return`<h2>Settings</h2>
+<div class="card"><b>Features</b><div class="mu" style="margin:4px 0 8px">Turn on what you need. Turned-off features are hidden.</div>${FL.map(([k,t,d])=>`<label class="fr"><span class="sw"><input type="checkbox" ${F(k)?"checked":""} onchange="setF('${k}',this.checked)"><i></i></span><span><b>${t}</b><div class="mu" style="font-size:13px">${d}</div></span></label>${extra[k]||""}`).join("")}</div>
+<div class="card"><b>Appearance</b><div class="row2"><span class="mu" style="width:70px">Theme</span>${[["","Auto"],["light","Light"],["dark","Dark"]].map(([v,n])=>`<button class="${th===v?"pri":""}" onclick="setTheme('${v}')">${n}</button>`).join("")}</div><div class="row2"><span class="mu" style="width:70px">Accent</span>${ACC.map(([n,c])=>`<button class="swc${ac===c?" on":""}" style="background:${c}" title="${n}" aria-label="${n}" onclick="setAcc('${c}')"></button>`).join("")}</div></div>
+<div class="card"><b>Data and backup</b><div class="mu" style="margin:4px 0 8px">Export everything to a JSON file (your PAT is never included) or restore from one. A backup is also made automatically once a day and the last 7 are kept in this browser.</div><div class="row2"><button onclick="exportData()">Export backup</button><label class="btn">Import backup…<input type="file" accept=".json,application/json" onchange="importData(this)" hidden></label></div>${B.length?`<table><tr><th>Automatic backups</th><th>Log entries</th><th></th></tr>${B.map((b,k)=>`<tr><td>${new Date(b.t).toLocaleString("en-GB")}</td><td>${b.n}</td><td><button onclick="restoreBak(${k})">Restore</button></td></tr>`).join("")}</table>`:`<div class="mu">No automatic backup yet.</div>`}</div>
+${profBox()}<div id="dv">${vConn().replace("<h2>DevOps connection</h2>",'<h3 style="margin:22px 0 8px">DevOps connection</h3>')}</div>`}
+
+/* ---------- week view ---------- */
+function vWeek(){const t=dayKey(Date.now()),ws=addD(wkStart(t),7*(S.wkOff||0)),days=[...Array(7)].map((_,k)=>addD(ws,k)),E=S.entries.filter(e=>e.date>=days[0]&&e.date<=days[6]);
+ const ids=[...new Set([...E.map(e=>String(e.itemId)),...(S.weekRows||[]).map(String)])].filter(id=>item(id)),cell=(id,d)=>E.filter(e=>String(e.itemId)==id&&e.date==d).reduce((a,e)=>a+e.min,0);
+ const dt=days.map(d=>ids.reduce((a,id)=>a+cell(id,d),0)),gt=dt.reduce((a,x)=>a+x,0),dn=d=>new Date(d+"T12:00:00").toLocaleDateString("en-GB",{weekday:"short",day:"numeric"});
+ const rows=ids.map(id=>{const i=item(id),tot=days.reduce((a,d)=>a+cell(id,d),0);return`<tr><td class="wl"><span class="tag" ${isBug(i)?'style="color:var(--rd)"':""}>${esc(i.type)}</span>#${i.id} ${esc(i.title)}${par(i)?`<div class="mu" style="font-size:12px">‹ ${esc(par(i).title)}</div>`:""}</td>${days.map(d=>`<td><input class="wc${d==t?" td":""}" value="${fmCell(cell(id,d))}" placeholder="–" aria-label="${esc(i.title)}, ${d}" onchange="wkSet('${id}','${d}',this)"></td>`).join("")}<td class="wtot"><b>${tot?fm(tot):"–"}</b></td></tr>`}).join("");
+ return`<h2>Week</h2><div class="bar"><button onclick="S.wkOff=(S.wkOff||0)-1;save();render()" aria-label="Previous week">◀</button><b style="min-width:210px;text-align:center">Week ${isoWeek(ws)} · ${new Date(ws+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short"})} – ${new Date(days[6]+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"})}</b><button onclick="S.wkOff=(S.wkOff||0)+1;save();render()" aria-label="Next week">▶</button><button onclick="S.wkOff=0;save();render()">This week</button><span class="mu" style="margin-left:auto">Week total: <b>${fm(gt)}</b></span></div>
+<div class="card" style="overflow-x:auto"><table class="wk"><thead><tr><th>Task</th>${days.map(d=>`<th class="${d==t?"td":""}">${dn(d)}</th>`).join("")}<th>Total</th></tr></thead><tbody>${rows||`<tr><td colspan="9" class="mu">No time logged this week. Add a task row below.</td></tr>`}</tbody><tfoot><tr><td class="wl">Total</td>${dt.map(x=>`<td>${x?fm(x):"–"}</td>`).join("")}<td>${fm(gt)}</td></tr></tfoot></table>
+<div style="display:flex;gap:10px;align-items:center;margin-top:12px;flex-wrap:wrap"><span class="mu">Add a task row:</span>${picker("wkp","",'onchange="wkAdd()"',"Search task…")}<span class="mu" style="font-size:13px">Type 1:30, 90m or 1.5h in a day. Empty removes the time.</span></div></div>`}
+function wkAdd(){const id=pickId("wkp");if(!id)return;S.weekRows=S.weekRows||[];if(!S.weekRows.map(String).includes(String(id)))S.weekRows.push(id);save();render()}
+function wkSet(id,d,el){const v=el.value.trim(),m=v===""?0:parseDur(v);if(m===null){note("Use a time like 1:30, 90m or 1.5h.");render();return}setCell(id,d,m)}
+function setCell(id,d,m){const E=S.entries.filter(e=>String(e.itemId)==String(id)&&e.date==d),cur=E.reduce((a,e)=>a+e.min,0);if(m===cur)return render();
+ if(!E.length)add(id,item(id).title,d,m);else if(m===0)S.entries=S.entries.filter(e=>!E.includes(e));else{S.entries=S.entries.filter(e=>e===E[0]||!E.includes(e));E[0].min=m}
+ save();render();if(m>cur)activate(id);if(azOn())sync(true,id)}
+
+/* ---------- reports ---------- */
+const RPN={sprint:"Sprint",week:"This week",lastweek:"Last week",month:"This month",last30:"Last 30 days",custom:"Custom range"};
+function rpRange(){const r=S.rp||{},p=r.period||"sprint",t=dayKey(Date.now()),w=wkStart(t);if(p==="week")return[w,addD(w,6)];if(p==="lastweek")return[addD(w,-7),addD(w,-1)];
+ if(p==="month"){const m=t.slice(0,7),n=new Date(+t.slice(0,4),+t.slice(5,7),0).getDate();return[m+"-01",m+"-"+String(n).padStart(2,"0")]}
+ if(p==="last30")return[addD(t,-29),t];if(p==="custom")return[r.from||addD(t,-29),r.to||t];return null}
+function rpEntries(){const R=rpRange();if(R)return S.entries.filter(e=>e.date>=R[0]&&e.date<=R[1]);const ids=new Set(S.items.filter(i=>i.sprint==S.sprint&&canLog(i)).map(i=>String(i.id)));return S.entries.filter(e=>ids.has(String(e.itemId))||(!item(e.itemId)&&e.sprint==S.sprint))}
+function rpSet(k,v){S.rp=S.rp||{};S.rp[k]=v;save();render()}
+function rpTable(es,g){const by={};es.forEach(e=>{const i=item(e.itemId);let k,l;
+  if(g==="person"){k=i?.who||"Unassigned";l=esc(k)}
+  else if(g==="story"){const p=i&&par(i);k=p?"s"+p.id:"none";l=p?`#${p.id} ${esc(p.title)}`:'<span class="mu">No user story</span>'}
+  else if(g==="day"){k=e.date;l=new Date(e.date+"T12:00:00").toLocaleDateString("en-GB",{weekday:"short",day:"numeric",month:"short",year:"numeric"})}
+  else{k=i?"i"+i.id:"none";l=i?`#${i.id} ${esc(i.title)}`+(par(i)?`<div class="mu" style="font-size:12px">${esc(par(i).title)}</div>`:""):'<span class="mu">No task</span>'}
+  const o=by[k]||(by[k]={l,min:0,ids:new Set(),i:g==="task"?i:null});o.min+=e.min;if(i)o.ids.add(i.id)});
+ const rows=Object.entries(by);if(g==="day")rows.sort((a,b)=>b[0].localeCompare(a[0]));else rows.sort((a,b)=>b[1].min-a[1].min);const tot=es.reduce((a,e)=>a+e.min,0)||1;
+ const head=g==="task"?"<th>Work item</th><th>Assigned</th><th>Estimate</th><th>Logged</th><th>Total used</th><th>Remaining</th>":`<th>${({person:"Assigned to",story:"User story",day:"Day"})[g]}</th><th>Tasks</th><th>Logged</th><th>Share</th>`;
+ const body=rows.map(([k,o])=>{if(g==="task"){const i=o.i;if(!i)return`<tr><td>${o.l}</td><td></td><td></td><td>${fm(o.min)}</td><td></td><td></td></tr>`;const u=used(i)/60;return`<tr><td>${o.l}</td><td>${esc(i.who||"")}</td><td>${i.est||0} h</td><td>${fm(o.min)}</td><td>${u.toFixed(1)} h</td><td style="color:${u>i.est?"var(--rd)":"var(--gr)"}">${((i.est||0)-u).toFixed(1)} h</td></tr>`}
+  return`<tr><td>${o.l}</td><td>${o.ids.size}</td><td>${fm(o.min)}</td><td style="min-width:120px"><div class="pg"><i style="width:${Math.round(o.min/tot*100)}%"></i></div></td></tr>`}).join("");
+ return`<table><tr>${head}</tr>${body||`<tr><td colspan="6" class="mu">No time logged in this period.</td></tr>`}</table>`}
+function vReport(){const sp=sprints(),r=S.rp||{},p=r.period||"sprint",g=r.group||"task",R=rpRange(),es=rpEntries(),tot=es.reduce((a,e)=>a+e.min*6e4,0),
+ byDay={};for(let i=6;i>=0;i--)byDay[dayKey(Date.now()-i*864e5)]=0;S.entries.forEach(e=>{if(e.date in byDay)byDay[e.date]+=e.min*6e4});const mx=Math.max(1,...Object.values(byDay));
+ return`<h2>Reports</h2><div class="bar">${p==="sprint"?`<select aria-label="Sprint" onchange="S.sprint=this.value;save();render()">${sp.map(s=>`<option ${s==S.sprint?"selected":""}>${esc(s)}</option>`).join("")}</select>`:""}<select aria-label="Period" onchange="rpSet('period',this.value)">${Object.entries(RPN).map(([k,n])=>`<option value="${k}" ${p==k?"selected":""}>${n}</option>`).join("")}</select>${p==="custom"?`<input type="date" aria-label="From" value="${R[0]}" onchange="rpSet('from',this.value)"> – <input type="date" aria-label="To" value="${R[1]}" onchange="rpSet('to',this.value)">`:""}<select aria-label="Group by" onchange="rpSet('group',this.value)">${[["task","Group by task"],["person","Group by person"],["story","Group by user story"],["day","Group by day"]].map(([k,n])=>`<option value="${k}" ${g==k?"selected":""}>${n}</option>`).join("")}</select><span class="mu">${p==="sprint"?"Sprint":RPN[p]} total: <b>${hrs(tot)}</b></span><button onclick="csv()" style="margin-left:auto">Export CSV</button></div>
+ ${cal()}<div class="card"><div class="mu">Last 7 days (all sprints)</div><div class="chart">${Object.entries(byDay).map(([k,v])=>`<div><b style="height:${v/mx*90}px"></b>${new Date(k).toLocaleDateString("en-GB",{weekday:"short"})}<br>${(v/36e5).toFixed(1)}</div>`).join("")}</div></div>
+ <div class="card">${rpTable(es,g)}</div>`}
+
+/* ---------- command palette ---------- */
+let pal=null;
+function palOpen(){if(!F("palette"))return;pal={q:"",i:0,mode:"list",tid:null};palDraw()}
+function palClose(){pal=null;const e=$("#pal");if(e)e.remove()}
+function palActs(){const A=[],go=(n,v,ok)=>{if(ok!==false)A.push({n:"Go to "+n,run:()=>{S.view=v;save();render()}})};
+ if(S.run){A.push({n:S.run.paused?"Resume timer":"Pause timer",run:pause});A.push({n:"Stop timer",run:stop})}
+ go("Timer","track");go("Week","week",F("week"));go("Sprints","sprints");go("Board","board",F("board"));go("Reports","report",F("reports"));go("Settings","settings");
+ A.push({n:"Change theme (auto / dark / light)",run:theme});A.push({n:"Export backup",run:exportData});if(azOn())A.push({n:"Sync to DevOps now",run:()=>sync()});return A}
+function palList(){const w=pal.q.toLowerCase().trim().split(/\s+/).filter(Boolean);
+ if(pal.mode==="task"){const i=item(pal.tid),o=[{k:"a",n:"Start timer",run:()=>start(i.id)},{k:"a",n:"Add time…",add:1},{k:"a",n:isPin(i.id)?"Unpin from the Timer page":"Pin to the Timer page",run:()=>togPin(i.id)}];
+  if(i.az&&S.cfg.org&&S.cfg.project)o.push({k:"a",n:"Open in DevOps",run:()=>window.open("https://dev.azure.com/"+encodeURIComponent(S.cfg.org)+"/"+encodeURIComponent(S.cfg.project)+"/_workitems/edit/"+i.id,"_blank","noopener")});return o}
+ const sp=[S.sprint,...sprints().filter(x=>x!==S.sprint)],T=S.items.filter(i=>canLog(i)&&w.every(x=>lbl(i).toLowerCase().includes(x))).sort((a,b)=>sp.indexOf(a.sprint)-sp.indexOf(b.sprint)).slice(0,8).map(i=>({k:"t",i})),
+ A=palActs().filter(a=>w.every(x=>a.n.toLowerCase().includes(x))).map(a=>({k:"a",n:a.n,run:a.run}));return T.concat(A)}
+function palRows(){const L=pal.L=palList();if(pal.i>=L.length)pal.i=Math.max(0,L.length-1);let h="",last="";
+ L.forEach((x,k)=>{const sec=pal.mode==="task"?"Actions":x.k==="t"?"Tasks":"Actions";if(sec!==last){h+=`<div class="ph">${sec}</div>`;last=sec}
+  h+=x.k==="t"?`<div class="pit${k===pal.i?" on":""}" onclick="palPick(${k})"><span class="tag" ${isBug(x.i)?'style="color:var(--rd)"':""}>${esc(x.i.type)}</span><div style="min-width:0"><div style="font-weight:600">${esc(x.i.title)}</div><div class="mu" style="font-size:12px">#${x.i.id}${x.i.who?" · "+esc(x.i.who):""} · ${esc(x.i.state||"")} · ${(used(x.i)/60).toFixed(1)} / ${x.i.est||0} h</div></div>${k===pal.i?'<span class="hint">Enter: start · Tab: more</span>':""}</div>`
+   :`<div class="pit${k===pal.i?" on":""}" onclick="palPick(${k})"><span style="font-weight:500">${esc(x.n)}</span></div>`});
+ return h||'<div class="ph">No matches</div>'}
+function palDraw(){let e=$("#pal");if(!e){e=document.createElement("div");e.id="pal";e.onclick=ev=>{if(ev.target===e)palClose()};document.body.appendChild(e)}
+ const i=pal.tid!=null?item(pal.tid):null,add=pal.mode==="add";
+ e.innerHTML=`<div class="pbox" role="dialog" aria-modal="true" aria-label="Command palette"><input id="pq" autocomplete="off" aria-label="${add?"Time to add":"Search"}" placeholder="${add?"Time to add to #"+i.id+" (1h30, 90m, 1:30)":pal.mode==="task"?"#"+i.id+" "+esc(i.title).replace(/"/g,""):"Search tasks or type a command"}" value="${esc(pal.q)}" oninput="pal.q=this.value;pal.i=0;palList2()" onkeydown="palKey(event)"><div class="pls" id="pls">${add?'<div class="ph">Press Enter to add the time to today</div>':palRows()}</div><div class="pft"><span>Up/Down to move</span><span>Enter to run</span><span>Tab for task actions</span><span>Esc to close</span></div></div>`;
+ const q=$("#pq");q.focus();q.setSelectionRange(q.value.length,q.value.length)}
+function palList2(){if(!pal||pal.mode==="add")return;$("#pls").innerHTML=palRows()}
+function palKey(e){if(!pal)return;const n=(pal.L||[]).length;
+ if(e.key==="Escape"){e.preventDefault();if(pal.mode!=="list"){pal.mode="list";pal.q="";pal.tid=null;pal.i=0;palDraw()}else palClose();return}
+ if(pal.mode==="add"){if(e.key==="Enter"){e.preventDefault();const m=parseDur(pal.q);if(!m)return note("Use a time like 1:30, 90m or 1.5h.");const id=pal.tid;add(id,item(id).title,dayKey(Date.now()),m);save();palClose();render();activate(id);if(azOn())sync(true,id);info("Added "+fm(m)+" to #"+id+".")}return}
+ if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();if(n){pal.i=(pal.i+(e.key==="ArrowDown"?1:-1)+n)%n;palList2();const o=document.querySelector(".pit.on");if(o)o.scrollIntoView({block:"nearest"})}return}
+ if(e.key==="Tab"){e.preventDefault();const x=pal.L[pal.i];if(pal.mode==="list"&&x&&x.k==="t"){pal.mode="task";pal.tid=x.i.id;pal.q="";pal.i=0;palDraw()}return}
+ if(e.key==="Enter"){e.preventDefault();palPick(pal.i)}}
+function palPick(k){const x=(pal.L||[])[k];if(!x)return;
+ if(x.k==="t"){const id=x.i.id;palClose();start(id);return}
+ if(x.add){pal.mode="add";pal.q="";palDraw();return}
+ palClose();x.run&&x.run()}
+document.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&!e.altKey&&e.key.toLowerCase()==="k"&&F("palette")){e.preventDefault();pal?palClose():palOpen()}});
+
+/* ---------- render ---------- */
 function render(){
- if(S.view==="conn")S.view="settings";if((S.view==="board"&&!F("board"))||(S.view==="report"&&!F("reports")))S.view="track";
- document.querySelectorAll("nav a").forEach(a=>{const f={board:"board",report:"reports"}[a.dataset.v];a.style.display=f&&!F(f)?"none":"";a.classList.toggle("on",a.dataset.v==S.view)});
- $("#app").innerHTML=runBar()+({track:vTrack,sprints:vSprints,board:vBoard,report:vReport,conn:vSettings,settings:vSettings})[S.view]()+modal();liveUI();
+ if(S.view==="conn")S.view="settings";
+ if((S.view==="board"&&!F("board"))||(S.view==="report"&&!F("reports"))||(S.view==="week"&&!F("week")))S.view="track";
+ document.querySelectorAll("nav a").forEach(a=>{const f={board:"board",report:"reports",week:"week"}[a.dataset.v];a.style.display=f&&!F(f)?"none":"";a.classList.toggle("on",a.dataset.v==S.view)});
+ document.body.classList.toggle("hv",F("hoverActions"));
+ const tp=$("#top");if(tp)tp.innerHTML=topbar();
+ $("#app").innerHTML=runBar()+syncBar()+({track:vTrack,week:vWeek,sprints:vSprints,board:vBoard,report:vReport,conn:vSettings,settings:vSettings})[S.view]()+modal()+fixModal();liveUI();
 }
+/*FEAT-END*/
 function vTrack(){
  const r=S.run;
  let bar=S.manual&&!r?`<input class="d" id="md" placeholder="What did you work on?">${picker("mi","")}<input type="date" id="mdt" value="${dayKey(Date.now())}"><input type="number" id="mh" min="0" value="1" style="width:56px" title="Hours"> h <input type="number" id="mm" min="0" max="59" value="0" style="width:56px" title="Minutes"> m<button class="pri" onclick="addManual()">Add</button>`
@@ -95,7 +320,7 @@ function vTrack(){
   return`<div class="day"><div class="dh"><span>${new Date(k).toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"short"})}</span><span>${fm(tot)}</span></div>`+g[k].map(e=>{const it=item(e.itemId);
   return`<div class="row"><div class="t">${esc(e.desc)||'<span class="mu">(no description)</span>'}${it?`<div class="s">#${it.id} ${esc(it.title)}${lk(it)}${par(it)?" ‹ "+esc(par(it).title)+lk(par(it)):""} · ${esc(it.sprint)}</div>`:`<div class="s"><span style="color:var(--rd)">No task – press ✎ to assign one</span></div>`}</div><span style="white-space:nowrap"><input type="number" min="0" id="h${e.id}" value="${Math.floor(e.min/60)}" style="width:56px" title="Hours" onchange="setHM(${e.id})"> h <input type="number" min="0" id="m${e.id}" value="${e.min%60}" style="width:56px" title="Minutes" onchange="setHM(${e.id})"> m</span><button class="ic" title="Edit" onclick="ed(${e.id})">✎</button><button class="ic" title="Continue" onclick="start('${e.itemId}',${JSON.stringify(e.desc).replace(/"/g,"&quot;")})">▶</button><button class="ic" title="Delete" onclick="del(${e.id})">🗑</button></div>${rowNotes(e,seenN)}`}).join("")+"</div>"}).join("");
  const wk=dayKey(Date.now()-6*864e5),wt=S.entries.filter(e=>e.date>=wk).reduce((a,e)=>a+e.min,0);
- return`<h2>Time tracker</h2><div class="bar${r?(r.paused?" live ps":" live"):""}">${bar}${mode}</div>${warn()}<div class="tgrid"><div><div class="mu" style="margin-bottom:10px">Last 7 days: <b>${fm(wt)}</b></div>${days||'<div class="card mu">No entries yet. Pick a work item and press START.</div>'}</div>${notes()}</div>`}
+ return`<h2>Time tracker</h2><div class="bar${r?(r.paused?" live ps":" live"):""}">${bar}${mode}</div>${quickStrip()}${tiles()}${warn()}<div class="tgrid"><div><div class="mu" style="margin-bottom:10px">Last 7 days: <b>${fm(wt)}</b></div>${days||'<div class="card mu">No entries yet. Pick a work item and press START.</div>'}</div>${notes()}</div>`}
 function addManual(){const m=(+$("#mh").value||0)*60+(+$("#mm").value||0);if(m<=0)return;const id=pickId("mi");if(!id)return note("Pick a task for the log.");add(id,$("#md").value||(item(id)?.title||""),$("#mdt").value,m);save();render();activate(id);sync(true,id)}
 function setMin(id,v){const e=S.entries.find(x=>x.id==id);if(e){e.min=Math.max(0,Math.round(+v||0));save();render()}}
 function del(id){const x=S.entries.find(e=>e.id==id);S.entries=S.entries.filter(e=>e.id!=id);save();render();if(x&&x.itemId)sync(true,x.itemId)}
@@ -104,7 +329,7 @@ function vSprints(){
  const bw=S.bWho||"",its=S.items.filter(i=>i.sprint==S.sprint&&(!bw||i.who==bw));
  const est=its.filter(canLog).reduce((a,i)=>a+(+i.est||0),0),lg=its.reduce((a,i)=>a+logged(i.id),0)+S.entries.filter(e=>!item(e.itemId)&&e.sprint==S.sprint).reduce((a,e)=>a+e.min*6e4,0);
  return`<h2>Sprints</h2><div class="bar"><select onchange="S.sprint=this.value;save();render()">${sp.map(s=>`<option ${s==S.sprint?"selected":""}>${esc(s)}</option>`).join("")}</select>${whoSel()}<span class="mu">Estimate: <b>${est} h</b> · Logged: <b>${hrs(lg)}</b></span>${pb()}</div><div class="msg" id="sy" style="margin:-8px 0 12px"></div><div class="tgrid"><div>
- <div class="day">${tree(its).map(({i,lvl,sep})=>{if(sep)return'<div class="dh"><span>Bugs and tasks without a user story</span></div>';if(!canLog(i)){const ch=its.filter(x=>x.parent==i.id&&!isBug(x)),e2=ch.reduce((a,x)=>a+(+x.est||0),0),l2=ch.reduce((a,x)=>a+used(x),0)/60;return`<div class="row" style="background:var(--bg);font-weight:600"><div class="t"><span class="tag">${esc(i.type)}</span>#${i.id} ${esc(i.title)}${lk(i)}<div class="s" style="font-weight:400">${esc(i.state)} · ${ch.length} ${ch.length==1?"task":"tasks"}</div></div><span class="mu" style="font-weight:400;font-size:12px">${l2.toFixed(1)} / ${e2} h</span></div>`}const l=used(i)/60,p=i.est?Math.min(100,l/i.est*100):0;const L=S.entries.filter(e=>String(e.itemId)==String(i.id)).sort((a,b)=>b.date.localeCompare(a.date)),o=S.open?.[i.id],nn=!F("notes")?0:(S.notes||[]).filter(n=>String(n.itemId)==String(i.id)).length,D=o?'<div style="background:var(--bg);padding:4px 14px 8px 52px">'+(L.length?L.map(e=>`<div class="row" style="border-top:0;padding:5px 0"><span class="mu" style="width:60px">${fd(e.date)}</span><span class="t">${esc(e.desc)}</span><b>${fm(e.min)}</b><button class="ic" title="Edit" onclick="ed(${e.id})">✎</button><button class="ic" title="Delete" onclick="del(${e.id})">🗑</button></div>`).join(""):'<div class="mu" style="padding:6px 0">No logs yet</div>')+tnotes(i)+'</div>':"";return`<div><div class="row" style="padding-left:${lvl?32:14}px;flex-wrap:wrap"><button class="ic" title="Expand" onclick="tog(${i.id})">${o?"▾":"▸"}</button><button class="ic" title="Start timer" onclick="start(${i.id})">▶</button><div class="t"><span class="tag" ${isBug(i)?'style="color:var(--rd)"':""}>${esc(i.type)}</span>#${i.id} ${esc(i.title)}${lk(i)}<div class="s">${i.who?"👤 "+esc(i.who)+" · ":""}${esc(i.state)} · ${L.length} ${L.length==1?"log":"logs"}${nn?` · ${NI} ${nn}`:""}</div></div><div style="width:150px"><div class="pg"><i class="${l>i.est?"over":""}" style="width:${p}%"></i></div><div class="mu" style="font-size:12px;margin-top:3px">${ob(i,l)}${l.toFixed(1)} / ${i.est||0} h${i.est?` · ${(i.est-l).toFixed(1)} h left`:""}</div></div>${qa(i.id)}</div>${D}</div>`}).join("")||'<div class="row mu">No items</div>'}</div>${freeHtml()}</div>${notes()}</div>`}
+ <div class="day">${tree(its).map(({i,lvl,sep})=>{if(sep)return'<div class="dh"><span>Bugs and tasks without a user story</span></div>';if(!canLog(i)){const ch=its.filter(x=>x.parent==i.id&&!isBug(x)),e2=ch.reduce((a,x)=>a+(+x.est||0),0),l2=ch.reduce((a,x)=>a+used(x),0)/60;return`<div class="row" style="background:var(--bg);font-weight:600"><div class="t"><span class="tag">${esc(i.type)}</span>#${i.id} ${esc(i.title)}${lk(i)}<div class="s" style="font-weight:400">${esc(i.state)} · ${ch.length} ${ch.length==1?"task":"tasks"}</div></div><span class="mu" style="font-weight:400;font-size:12px">${l2.toFixed(1)} / ${e2} h</span></div>`}const l=used(i)/60,p=i.est?Math.min(100,l/i.est*100):0;const L=S.entries.filter(e=>String(e.itemId)==String(i.id)).sort((a,b)=>b.date.localeCompare(a.date)),o=S.open?.[i.id],nn=!F("notes")?0:(S.notes||[]).filter(n=>String(n.itemId)==String(i.id)).length,D=o?'<div style="background:var(--bg);padding:4px 14px 8px 52px">'+(L.length?L.map(e=>`<div class="row" style="border-top:0;padding:5px 0"><span class="mu" style="width:60px">${fd(e.date)}</span><span class="t">${esc(e.desc)}</span><b>${fm(e.min)}</b><button class="ic" title="Edit" onclick="ed(${e.id})">✎</button><button class="ic" title="Delete" onclick="del(${e.id})">🗑</button></div>`).join(""):'<div class="mu" style="padding:6px 0">No logs yet</div>')+tnotes(i)+'</div>':"";return`<div><div class="row" style="padding-left:${lvl?32:14}px;flex-wrap:wrap"><button class="ic" title="Expand" onclick="tog(${i.id})">${o?"▾":"▸"}</button><button class="ic" title="Start timer" onclick="start(${i.id})">▶</button>${starBtn(i.id)}<div class="t"><span class="tag" ${isBug(i)?'style="color:var(--rd)"':""}>${esc(i.type)}</span>#${i.id} ${esc(i.title)}${lk(i)}<div class="s">${i.who?"👤 "+esc(i.who)+" · ":""}${esc(i.state)} · ${L.length} ${L.length==1?"log":"logs"}${nn?` · ${NI} ${nn}`:""}</div></div><div style="width:150px"><div class="pg"><i class="${l>i.est?"over":""}" style="width:${p}%"></i></div><div class="mu" style="font-size:12px;margin-top:3px">${ob(i,l)}${l.toFixed(1)} / ${i.est||0} h${i.est?` · ${(i.est-l).toFixed(1)} h left`:""}</div></div>${qa(i.id)}</div>${D}</div>`}).join("")||'<div class="row mu">No items</div>'}</div>${freeHtml()}</div>${notes()}</div>`}
 S.pushed=S.pushed||{};
 const pend=()=>S.items.filter(i=>i.az&&canLog(i)).map(i=>({i,d:Math.round(logged(i.id)/6e4)-(S.pushed[i.id]||0)})).filter(x=>x.d!==0);
 function pb(){if(!S.items.some(i=>i.az))return"";const P=pend(),n=P.reduce((a,x)=>a+x.d,0);return`<button class="pri" style="margin-left:auto" onclick="sync()">Sync to DevOps${P.length?` (${P.length} tasks, ${n<0?"-":""}${fm(Math.abs(n))})`:""}</button>`}
@@ -129,9 +354,9 @@ async function sync(auto,only){
    const rw=f[RW]!=null?Math.max(0,r4(+f[RW]-h)):f[OE]!=null?Math.max(0,r4(+f[OE]-cw)):null;
    if(rw!=null)ops.push({op:"add",path:"/fields/"+RW,value:rw});
    const p=await fetch(u,{method:"PATCH",headers:{...H,"Content-Type":"application/json-patch+json"},body:JSON.stringify(ops)});if(!p.ok){let t="";try{t=(await p.json()).message||""}catch(e){}throw new Error("write HTTP "+p.status+(p.status==401||p.status==403?" – the PAT needs Work Items: Read & write":"")+(t?": "+t.slice(0,150):""))}
-   S.pushed[i.id]=(S.pushed[i.id]||0)+d;i.done=(+i.done||0)+d/60;save();ok++})}
-  catch(e){er.push("#"+i.id+" ("+e.message+")")}}
- if(!auto)render();const m2=auto?toast():$("#sy");if(m2){m2.innerHTML=(ok==1?"1 task":ok+" tasks")+" updated in DevOps."+(er.length?' <span class="err">Failed: '+esc(er.join(", "))+". Check the PAT scope (Work Items: Read & write) and that the work item type has Completed/Remaining Work.</span>":"");if(auto&&!er.length)setTimeout(()=>{const t=$("#toast");if(t)t.style.display="none"},2500)}syncing=false;if(again){again=false;sync(auto)}}
+   S.pushed[i.id]=(S.pushed[i.id]||0)+d;i.done=(+i.done||0)+d/60;if(S.syncErr)delete S.syncErr[i.id];save();ok++})}
+  catch(e){(S.syncErr=S.syncErr||{})[i.id]=e.message;save();er.push("#"+i.id+" ("+e.message+")")}}
+ if(!auto||er.length||hadErr)render();hadErr=er.length>0;const m2=auto?toast():$("#sy");if(m2){m2.innerHTML=(ok==1?"1 task":ok+" tasks")+" updated in DevOps."+(er.length?' <span class="err">Failed: '+esc(er.join(", "))+". Check the PAT scope (Work Items: Read & write) and that the work item type has Completed/Remaining Work.</span>":"");if(auto&&!er.length)setTimeout(()=>{const t=$("#toast");if(t)t.style.display="none"},2500)}syncing=false;if(again){again=false;sync(auto)}}
 const azReady=()=>typeof hasPat!=="undefined"&&hasPat&&!!S.cfg.org;
 const catRank=s=>{const c=s.category||"";if(/^proposed/i.test(c))return 0;if(/^inprogress/i.test(c))return 1;if(/^resolved/i.test(c))return 2;if(/^complete/i.test(c))return 3;if(/^removed/i.test(c))return 9;const n=s.name||"";if(/^removed$/i.test(n))return 9;if(/^(new|to do|todo|proposed|open|design|approved)$/i.test(n))return 0;if(/(resolved|test|review)/i.test(n))return 2;if(/(closed|done|complete|finished)/i.test(n))return 3;return 1};
 const catOf=i=>catRank((S.states?.[i.type]||[]).find(x=>x.name===i.state)||{name:i.state});
@@ -159,7 +384,7 @@ const fd=d=>new Date(d+"T12:00:00").toLocaleDateString("en-GB",{day:"numeric",mo
 const NI=`<svg class="ni" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15.5 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5L15.5 3Z"/><path d="M15 3v6h6"/></svg>`;
 function bnote(id){S.bOpen=S.bOpen||{};S.bOpen[id]=!S.bOpen[id];save();render()}
 function kcard(i){const nn=!F("notes")?0:(S.notes||[]).filter(n=>String(n.itemId)==String(i.id)).length,bo=(S.bOpen||{})[i.id],run=S.run&&String(S.run.itemId)==String(i.id),l=used(i)/60,p=i.est?Math.min(100,l/i.est*100):0,pr=par(i);
- return`<div class="kc${run?" run":""}${nn?" hn":""}"><div class="kd" draggable="true" ondragstart="kStart(event,${i.id})" ondragend="kEnd()" title="Drag to change status"><div style="display:flex;justify-content:space-between;align-items:center"><span><span class="tag" ${isBug(i)?'style="color:var(--rd)"':""}>${esc(i.type)}</span><span class="mu">#${i.id}</span>${lk(i)}${BCOLS.some(n=>nk(n)===nk(i.state))||!i.state?"":` <span class="tag" title="DevOps status">${esc(i.state)}</span>`}${nn?` <span class="nb" title="${nn} note(s)" onclick="bnote(${i.id})">${NI} ${nn}</span>`:""}</span>${run?`<span style="color:var(--rd);font-size:12px">● <span class="kclk">${dur(elapsed())}</span></span>`:""}</div><div style="margin:4px 0 2px">${esc(i.title)}</div>${pr?`<div class="mu" style="font-size:12px">‹ ${esc(pr.title)}${lk(pr)}</div>`:""}${i.who?`<div class="mu" style="font-size:12px">\u{1F464} ${esc(i.who)}</div>`:""}<div class="pg" style="margin-top:6px"><i class="${l>i.est?"over":""}" style="width:${p}%"></i></div><div class="mu" style="font-size:12px;margin-top:2px">${ob(i,l)}${l.toFixed(1)} / ${i.est||0} h</div></div><div class="ka">${run?`<button class="ic" title="Stop timer" onclick="stop()">■</button>`:`<button class="ic" title="Start timer" onclick="start(${i.id})">▶</button>`}${qa(i.id)}${F("notes")?`<button class="ic" title="Notes" onclick="bnote(${i.id})">${NI}</button>`:""}</div>${bo?tnotes(i):""}</div>`}
+ return`<div class="kc${run?" run":""}${nn?" hn":""}"><div class="kd" draggable="true" ondragstart="kStart(event,${i.id})" ondragend="kEnd()" title="Drag to change status"><div style="display:flex;justify-content:space-between;align-items:center"><span><span class="tag" ${isBug(i)?'style="color:var(--rd)"':""}>${esc(i.type)}</span><span class="mu">#${i.id}</span>${lk(i)}${starBtn(i.id)}${BCOLS.some(n=>nk(n)===nk(i.state))||!i.state?"":` <span class="tag" title="DevOps status">${esc(i.state)}</span>`}${nn?` <span class="nb" title="${nn} note(s)" onclick="bnote(${i.id})">${NI} ${nn}</span>`:""}</span>${run?`<span style="color:var(--rd);font-size:12px">● <span class="kclk">${dur(elapsed())}</span></span>`:""}</div><div style="margin:4px 0 2px">${esc(i.title)}</div>${pr?`<div class="mu" style="font-size:12px">‹ ${esc(pr.title)}${lk(pr)}</div>`:""}${i.who?`<div class="mu" style="font-size:12px">\u{1F464} ${esc(i.who)}</div>`:""}<div class="pg" style="margin-top:6px"><i class="${l>i.est?"over":""}" style="width:${p}%"></i></div><div class="mu" style="font-size:12px;margin-top:2px">${ob(i,l)}${l.toFixed(1)} / ${i.est||0} h</div></div><div class="ka">${run?`<button class="ic" title="Stop timer" onclick="stop()">■</button>`:`<button class="ic" title="Start timer" onclick="start(${i.id})">▶</button>`}${qa(i.id)}${F("notes")?`<button class="ic" title="Notes" onclick="bnote(${i.id})">${NI}</button>`:""}</div>${bo?tnotes(i):""}</div>`}
 function vBoard(){
  const sp=sprints();if(!sp.includes(S.sprint))S.sprint=sp[0];
  const bt=S.bType||"all",bw=S.bWho||"";
@@ -179,17 +404,7 @@ function saveEdit(){const e=S.entries.find(x=>x.id==editId);if(!e)return;const v
 function setItem(id,v){const e=S.entries.find(x=>x.id==id);if(!e)return;e.itemId=v;if(v)delete e.sprint;const x=S.entries.find(y=>y!==e&&y.date==e.date&&String(y.itemId)==String(v)&&y.desc==e.desc&&(v||y.sprint==e.sprint));if(x){x.min+=e.min;S.entries=S.entries.filter(y=>y!==e)}save();render()}
 function setSp(id,v){const e=S.entries.find(x=>x.id==id);if(e){e.sprint=v;save();render()}}
 function freeHtml(){const L=S.entries.filter(e=>!item(e.itemId)&&e.sprint==S.sprint);if(!L.length)return"";return`<div class="day" style="margin-top:14px"><div class="dh"><span>Without work item</span><span>${fm(L.reduce((a,e)=>a+e.min,0))}</span></div>`+L.map(e=>`<div class="row"><span class="mu" style="width:60px">${fd(e.date)}</span><span class="t">${esc(e.desc)||'<span class="mu">(no description)</span>'}</span><span class="mu">${esc(e.sprint)}</span><b>${fm(e.min)}</b><button class="ic" title="Edit" onclick="ed(${e.id})">✎</button><button class="ic" title="Delete" onclick="del(${e.id})">🗑</button></div>`).join("")+"</div>"}
-function vReport(){
- const sp=sprints(),its=S.items.filter(i=>i.sprint==S.sprint&&canLog(i));
- const ids=new Set(its.map(i=>String(i.id)));
- const es=S.entries.filter(e=>ids.has(String(e.itemId))||(!item(e.itemId)&&e.sprint==S.sprint));
- const byDay={};for(let i=6;i>=0;i--)byDay[dayKey(Date.now()-i*864e5)]=0;
- S.entries.forEach(e=>{if(e.date in byDay)byDay[e.date]+=e.min*6e4});
- const mx=Math.max(1,...Object.values(byDay));
- const tot=es.reduce((a,e)=>a+e.min*6e4,0);
- return`<h2>Reports</h2><div class="bar"><select onchange="S.sprint=this.value;save();render()">${sp.map(s=>`<option ${s==S.sprint?"selected":""}>${esc(s)}</option>`).join("")}</select><span class="mu">Sprint total: <b>${hrs(tot)}</b></span><button onclick="csv()" style="margin-left:auto">Export CSV</button></div>
- ${cal()}<div class="card"><div class="mu">Last 7 days (all sprints)</div><div class="chart">${Object.entries(byDay).map(([k,v])=>`<div><b style="height:${v/mx*90}px"></b>${new Date(k).toLocaleDateString("en-GB",{weekday:"short"})}<br>${(v/36e5).toFixed(1)}</div>`).join("")}</div></div>
- <div class="card"><table><tr><th>Work item</th><th>Assigned</th><th>Estimate</th><th>Used</th><th>Remaining</th></tr>${its.filter(i=>S.entries.some(e=>String(e.itemId)==String(i.id))).map(i=>{const l=used(i)/60;return`<tr><td>#${i.id} ${esc(i.title)}${par(i)?'<div class="mu" style="font-size:12px">'+esc(par(i).title)+"</div>":""}</td><td>${esc(i.who||"")}</td><td>${i.est||0} h</td><td>${l.toFixed(1)} h</td><td style="color:${l>i.est?"var(--rd)":"var(--gr)"}">${((i.est||0)-l).toFixed(1)} h</td></tr>`}).join("")||'<tr><td colspan="5" class="mu">No time logged on tasks in this sprint.</td></tr>'}</table></div>`}
+
 function notes(){if(!F("notes"))return"";const A=S.notes||[],fl=S.nfilter||"free";A.forEach((n,i)=>{if(n.color==null)n.color=(i+1)%3==0?2:(i+1)%2==0?1:0});const N=fl=="all"?A:A.filter(n=>!(n.itemId&&item(n.itemId))),fo=S.npadfold;return`<aside class="pad"><div class="mu" style="margin-bottom:8px;font-weight:600;cursor:pointer;user-select:none" onclick="S.npadfold=!S.npadfold;save();render()">${fo?"\u25b8":"\u25be"} Notes (${A.length})</div><div style="display:${fo?"none":"block"}"><div style="display:flex;gap:4px;margin-bottom:8px"><button class="${fl=="free"?"pri":""}" style="padding:3px 8px;font-size:12px" onclick="S.nfilter='free';save();render()">Unlinked (${A.filter(n=>!(n.itemId&&item(n.itemId))).length})</button><button class="${fl=="all"?"pri":""}" style="padding:3px 8px;font-size:12px" onclick="S.nfilter='all';save();render()">All (${A.length})</button></div><div style="display:flex;gap:6px;margin-bottom:10px"><input id="nn" placeholder="New note\u2026" style="flex:1;min-width:0" onkeydown="if(event.key==='Enter')noteAdd()"><button class="pri" style="padding:7px 12px" title="Add note" onclick="noteAdd()">+</button></div><div style="margin-bottom:10px">${picker("nl","","","Link to task / story / bug (optional)\u2026")}</div><div>${N.map(n=>`<div class="sn c${n.color} t${n.id%2}" ondragover="noteOver(event,${n.id})" ondrop="noteDrop(event,${n.id})"><span class="gh" draggable="true" title="Drag to reorder" ondragstart="noteDrag(event,${n.id})" ondragend="noteEnd()">⠿</span><textarea rows="3" onchange="noteSet(${n.id},this.value)">${esc(n.text)}</textarea><button class="ic" title="Delete note" onclick="noteDel(${n.id})">\u2715</button><div class="nt">${n.itemId&&item(n.itemId)?`🔗 <b>#${n.itemId}</b> ${esc(item(n.itemId).title)}${lk(item(n.itemId))} <button class="ic" style="position:static;padding:0 4px" title="Unlink" onclick="noteUnlink(${n.id})">\u2715</button>`:picker("nk"+n.id,"",`onchange="noteLink(${n.id})"`,"Link to task / story / bug\u2026")}</div></div>`).join("")||'<div class="mu" style="font-size:12px">'+(A.length&&fl=="free"?"No unlinked notes. Switch to All to see the linked ones.":"Jot down small notes to yourself.")+'</div>'}</div></div></aside>`}
 function noteAdd(){const v=$("#nn").value.trim();if(!v)return;(S.notes=S.notes||[]).unshift({id:Date.now(),text:v,color:Math.floor(Math.random()*3),itemId:pickId("nl")||undefined});save();render()}
 function noteSet(id,v){if(!v.trim())return noteDel(id);const n=(S.notes||[]).find(x=>x.id==id);if(n){n.text=v;save()}}
@@ -216,14 +431,9 @@ function cal(){
  const mt=Object.values(by).flat().reduce((a,e)=>a+e.min,0),sl=S.calDay&&S.calDay.startsWith(m)?by[S.calDay]||[]:null;
  const det=S.calDay&&S.calDay.startsWith(m)?`<div style="margin-top:14px"><b>${new Date(S.calDay+"T12:00:00").toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"})}</b> <span class="mu">\u00b7 ${fm(sl.reduce((a,e)=>a+e.min,0))}</span>${sl.map(e=>{const i=item(e.itemId);return`<div class="row" style="padding:7px 0"><div class="t">${i?"#"+i.id+" "+esc(i.title)+(par(i)?" \u2039 "+esc(par(i).title):""):'<span style="color:var(--rd)">No task</span>'}${e.desc&&(!i||e.desc!=i.title)?`<div class="s">${esc(e.desc)}</div>`:""}</div><b>${fm(e.min)}</b><button class="ic" title="Edit" onclick="ed(${e.id})">\u270e</button></div>`}).join("")||'<div class="mu" style="padding:8px 0">No time logged this day.</div>'}</div>`:"";
  return`<div class="card"><div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap"><button onclick="calGo(-1)">\u25c0</button><b style="min-width:150px;text-align:center">${first.toLocaleDateString("en-GB",{month:"long",year:"numeric"})}</b><button onclick="calGo(1)">\u25b6</button><button onclick="S.calMonth=null;S.calDay=null;save();render()">Today</button><span class="mu" style="margin-left:auto">Month total: <b>${fm(mt)}</b></span></div><div class="cal">${["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map(d=>`<div class="ch0">${d}</div>`).join("")}${cells}</div>${det}</div>`}
-function csv(){const r=[["Date","Minutes","Hours","Work item","User story","Assigned to","Sprint","Description"]];S.entries.forEach(e=>{const i=item(e.itemId);r.push([e.date,e.min,(e.min/60).toFixed(2),i?i.id:"",i&&par(i)?par(i).title:"",i?i.who||"":"",i?i.sprint:"",e.desc])});
+function csv(){const r=[["Date","Minutes","Hours","Work item","User story","Assigned to","Sprint","Description"]];rpEntries().forEach(e=>{const i=item(e.itemId);r.push([e.date,e.min,(e.min/60).toFixed(2),i?i.id:"",i&&par(i)?par(i).title:"",i?i.who||"":"",i?i.sprint:"",e.desc])});
  const t=r.map(x=>x.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(";")).join("\n");const a=document.createElement("a");a.href="data:text/csv;charset=utf-8,"+encodeURIComponent("\ufeff"+t);a.download="time-entries.csv";a.click()}
-const FD={board:1,reports:1,notes:1,runbar:1,autoActive:1,overBudget:1,backdate:0,longTimer:1},F=k=>(S.feat&&k in S.feat)?!!S.feat[k]:!!FD[k];
-const FL=[["board","Board","Kanban board with New / Active / Closed columns. Drag a card to change its status in DevOps."],["reports","Reports and calendar","Sprint report, calendar view and CSV export."],["notes","Notes","Sticky notes pad and notes on tasks, logs and board cards."],["runbar","Running-timer bar","Red bar on every page while a timer is running, with pause and stop."],["autoActive","Set task Active automatically","When a timer starts or time is added to a New task, move it to Active in DevOps."],["overBudget","Over-budget warning","Mark tasks where logged time is above the Original Estimate."],["backdate","Choose a date when adding time","Adds a date field to Add h/m, so you can log time for an earlier day."],["longTimer","Forgotten-timer warning","Warn once when a timer has been running for more than 8 hours."]];
 const ob=(i,l)=>F("overBudget")&&i.est&&l>i.est?`<span class="ob">Over budget</span> \u00b7 `:"";
-function setF(k,v){S.feat=S.feat||{};S.feat[k]=!!v;save();render()}
-function longChk(){const r=S.run;if(F("longTimer")&&r&&!r.paused&&!r.warned&&elapsed()>288e5){r.warned=1;save();note("Timer has been running for more than 8 hours. Did you forget to stop it?")}}
-function vSettings(){return`<h2>Settings</h2><div class="card"><b>Features</b><div class="mu" style="margin:4px 0 8px">Turn on what you need. Turned-off features are hidden.</div>${FL.map(([k,t,d])=>`<label class="fr"><span class="sw"><input type="checkbox" ${F(k)?"checked":""} onchange="setF('${k}',this.checked)"><i></i></span><span><b>${t}</b><div class="mu" style="font-size:13px">${d}</div></span></label>`).join("")}</div><div id="dv">${vConn().replace("<h2>DevOps connection</h2>",'<h3 style="margin:22px 0 8px">DevOps connection</h3>')}</div>`}
 function vConn(){const c=S.cfg;return`<h2>DevOps connection</h2>
 <div class="card"><b>Fetch sprints directly from Azure DevOps</b><div class="grid" style="margin:10px 0"><input id="o" placeholder="Organization" value="${esc(c.org)}"><input id="p" placeholder="Project" value="${esc(c.project)}"><input id="t" placeholder="Team (e.g. Project Team)" value="${esc(c.team)}"><input id="k" type="password" placeholder="${hasPat?"PAT stored in Windows Credential Manager (leave empty to keep)":"Personal Access Token (Work Items: Read & Write)"}"></div>
 <button class="pri" onclick="fetchAz()">Fetch sprints</button><div class="msg" id="m1">Your PAT is stored in Windows Credential Manager and never written to the data file. Entries are saved in %APPDATA%\SprintTimeTracker\data.json. Syncing to DevOps needs a PAT with Work Items: Read &amp; Write, and only work items fetched from DevOps can be synced.</div></div>
@@ -244,10 +454,9 @@ async function fetchAz(auto){
    (await r.json()).value.forEach(w=>out.push({id:w.id,title:w.fields["System.Title"],type:w.fields["System.WorkItemType"],state:w.fields["System.State"],est:w.fields["Microsoft.VSTS.Scheduling.OriginalEstimate"]||0,az:1,done:w.fields["Microsoft.VSTS.Scheduling.CompletedWork"]||0,parent:w.fields["System.Parent"],who:(a=>a?a.displayName||a:"")(w.fields["System.AssignedTo"]),sprint:it.name}))}
   const have=new Set(out.map(x=>x.id)),miss=[...new Set(out.map(x=>x.parent).filter(p=>p&&!have.has(p)))];if(miss.length){m.textContent="Fetching user stories…";const r2=await fetch(`${B}/_apis/wit/workitemsbatch?api-version=7.1`,{method:"POST",headers:H,body:JSON.stringify({ids:miss.slice(0,200),fields:["System.Id","System.Title","System.WorkItemType","System.State","System.Parent"]})});(await r2.json()).value.forEach(w=>{const k=out.find(x=>x.parent==w.id);out.push({id:w.id,title:w.fields["System.Title"],type:w.fields["System.WorkItemType"],state:w.fields["System.State"],est:0,az:1,parent:w.fields["System.Parent"],sprint:k.sprint})})}
 m.textContent="Fetching statuses…";S.states=S.states||{};for(const t of [...new Set(out.filter(canLog).map(x=>x.type))]){try{const sr=await g(`${B}/${encodeURIComponent(c.project)}/_apis/wit/workitemtypes/${encodeURIComponent(t)}/states?api-version=7.1-preview.1`);S.states[t]=sr.value.map(x=>({name:x.name,category:x.category,color:x.color}))}catch(e){}}
-S.items=out.concat(S.items.filter(x=>!out.some(y=>y.id==x.id)&&S.entries.some(e=>String(e.itemId)==String(x.id))));S.sprint=its[0].name;save();m.textContent="Fetched "+out.length+" work items from "+its.map(x=>x.name).join(" + ")+".";if(auto){render();setTimeout(()=>{const t=$("#toast");if(t)t.style.display="none"},3000)}
+S.items=out.concat(S.items.filter(x=>!out.some(y=>y.id==x.id)&&S.entries.some(e=>String(e.itemId)==String(x.id))));S.sprint=its[0].name;save();{const tp=$("#top");if(tp)tp.innerHTML=topbar()}m.textContent="Fetched "+out.length+" work items from "+its.map(x=>x.name).join(" + ")+".";if(auto){render();setTimeout(()=>{const t=$("#toast");if(t)t.style.display="none"},3000)}
  }catch(e){m.innerHTML='<span class="err">Could not fetch ('+esc(e.message)+'). Check organization, project, team and that your PAT is valid.</span>'}}
 function theme(){S.theme=({"":"dark",dark:"light",light:""})[S.theme||""];save();applyTheme()}
-function applyTheme(){const t=S.theme||"",r=document.documentElement;if(t)r.dataset.theme=t;else delete r.dataset.theme;$("#th").textContent="◐ Theme: "+({"":"Auto",dark:"Dark",light:"Light"})[t]}
 applyTheme();
 document.querySelectorAll("nav a").forEach(a=>a.onclick=()=>{S.view=a.dataset.v;render()});
 setInterval(()=>{const c=$("#clock");if(c&&S.run)c.textContent=dur(elapsed());document.querySelectorAll(".kclk,.rclk").forEach(x=>{if(S.run)x.textContent=dur(elapsed())});liveTitle();longChk()},500);

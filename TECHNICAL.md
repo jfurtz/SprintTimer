@@ -114,3 +114,14 @@ The Board always has three columns: New (category Proposed), Active (InProgress)
 
 ## Settings and feature toggles
 The "Settings" nav item (view `settings`; the old `conn` view redirects there) has a Features list and, below it, the DevOps connection. Toggles live in `S.feat` (defaults in `FD`, read with `F(key)`; list/labels in `FL`; handler `setF`). Keys: `board`, `reports` (hide nav items), `notes` (pad, task/log/card notes), `runbar`, `autoActive` (gates `activate()`), `overBudget` (`ob()` chip), `backdate` (date field in `qa()`/`quick()`), `longTimer` (`longChk()`, warns once after 8 h). To add a feature: add a default to `FD`, a row to `FL`, and gate the code with `F("key")`.
+
+## Design, command palette and added features
+- **Layout:** icon sidebar, top bar (`#top`, `topbar()`: palette button + sync status), stat tiles (`tiles()`), pinned/recent chips (`quickStrip()`). Accent colour = `--ac` (`S.acc`, `applyAccent()`).
+- **Command palette:** Ctrl+K / Cmd+K (`palOpen()`, `palKey()`, `palList()`); Enter starts a timer on a task, Tab opens task actions (start, add time, pin, open in DevOps).
+- **Sync queue:** DevOps writes that fail are kept as pending deltas (`pend()`) and the error text in `S.syncErr`; `syncBar()` shows them with a Retry button and `sync(true)` retries every 60 s and when the browser comes online.
+- **Forgotten/away timer:** `longChk()` + `fixModal()`/`fixDo()` (runs > 8 h, or a gap > 3 min between ticks).
+- **Backup:** `exportData()`, `loadSnap()` (import/restore, PAT never exported), `autoBackup()` keeps 7 daily snapshots in localStorage key `st1bak`.
+- **Week view:** `vWeek()`, `setCell()` (edits aggregate the day's entries for a task into one entry and syncs the delta), `parseDur()` accepts 1:30, 90m, 1.5h, 1h30.
+- **Reports:** period (sprint/week/last week/month/last 30 days/custom) and grouping (task/person/story/day) in `S.rp`; CSV export uses `rpEntries()`.
+- **Projects:** saved connection profiles in `S.profiles`/`S.pid` (`profSave/profSwitch/profDel`); switching refetches from DevOps.
+- **Daily reminder:** `remChk()`, settings `S.rt` (time) and `S.rh` (goal hours).
