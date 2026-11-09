@@ -151,3 +151,7 @@ Notes belong to a task (`itemId`) or sit in the Inbox (no `itemId`). Fields: `id
 ## Active project in the top bar
 - `projSel()` shows which DevOps project is active, first in the top bar (left of the sprint and user selectors).
 - With two or more saved projects (`S.profiles`) it is a dropdown that calls `profSwitch()`; with one it is a label with the project name (tooltip `org/project`). It is hidden when DevOps is not connected.
+
+## Notes: adding on the "On tasks" tab
+- On the "On tasks" tab the quick-note field has a required task picker (`#nkt`, remembered in `S.ntask`), so a new note lands on that task and stays visible. Without a task the user gets a message instead of the note silently going to the Inbox.
+- A `#123 text` note typed on the Inbox tab switches to "On tasks" so the note is seen where it ended up.
