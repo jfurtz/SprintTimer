@@ -128,3 +128,9 @@ The "Settings" nav item (view `settings`; the old `conn` view redirects there) h
 
 ## Notes (task-centred)
 Notes belong to a task (`itemId`) or sit in the Inbox (no `itemId`). Fields: `id`, `text`, `itemId`, `done`. One renderer (`nItem()`) is used everywhere: the Inbox / "On tasks" panel (`notes()`), the task block on Sprints and Board cards (`tnotes()`), and under logs on the Timer page (`rowNotes()`). Badges count open (not done) notes. Quick note: type `#123 text` to attach to task 123. In the command palette: "New note…" or Tab on a task > "Add note…".
+
+## User setup and scope
+- `S.me = {name,id,auto,org}`: detected via `/_apis/connectionData` (local build) or chosen manually in Settings.
+- `S.scope`: `"me"` (default), `"all"` or a person's name. `mine(i)`, `scopeOk(i)` filter tiles, search, palette and picker.
+- Unassigned tasks and tasks you have logged on are included by default (`S.incUn`, `S.incLogged`).
+- Logging on someone else's task asks for confirmation once per task (`S.askOther`, `S.okO`).
