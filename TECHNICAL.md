@@ -111,3 +111,6 @@ Cards with notes get a yellow left border and a 📝 n badge; the 📝 button (o
 
 ## Board columns
 The Board always has three columns: New (category Proposed), Active (InProgress) and Closed (Resolved/Completed). A card whose DevOps status is something else (Impeded, On Hold, Resolved ...) sits in the column of its category and shows the real status as a small tag. Dropping a card in a column sets the first matching DevOps state of the item's type (preferring a state literally named New/Active/Closed) — see `targetState()` and `kDrop()`. Removed items are hidden.
+
+## Settings and feature toggles
+The "Settings" nav item (view `settings`; the old `conn` view redirects there) has a Features list and, below it, the DevOps connection. Toggles live in `S.feat` (defaults in `FD`, read with `F(key)`; list/labels in `FL`; handler `setF`). Keys: `board`, `reports` (hide nav items), `notes` (pad, task/log/card notes), `runbar`, `autoActive` (gates `activate()`), `overBudget` (`ob()` chip), `backdate` (date field in `qa()`/`quick()`), `longTimer` (`longChk()`, warns once after 8 h). To add a feature: add a default to `FD`, a row to `FL`, and gate the code with `F("key")`.
