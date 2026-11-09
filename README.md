@@ -45,7 +45,7 @@ Only Tasks and Bugs can have time logged (bugs standalone, without a parent).
 
 | Command palette | Dark theme |
 |---|---|
-| ![Palette](docs/palette.png) | ![Dark](docs/board-dark.png) |
+| ![Palette](docs/command-palette.png) | ![Dark](docs/board-dark.png) |
 
 ## Quick start (Windows)
 
