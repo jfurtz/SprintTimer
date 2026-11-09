@@ -55,7 +55,7 @@ Only Tasks and Bugs can have time logged (bugs standalone, without a parent).
 
 The PAT is stored in Windows Credential Manager (`SprintTimeTracker:AzureDevOpsPAT`), never in a file. Time entries are saved in `%APPDATA%\SprintTimeTracker\data.json` — back it up if the data matters.
 
-Want to try it without DevOps? Open `demo/timetracker.html` in a browser (demo data, stored in the browser only).
+Want to try it without DevOps? Open `demo/timetracker.html` in a browser. It has demo data with two sample projects ("Website relaunch" and "Mobile app") so you can try the project switcher; everything is stored in the browser only.
 
 ## Files
 

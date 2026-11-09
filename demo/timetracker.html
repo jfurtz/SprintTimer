@@ -97,12 +97,21 @@ const demo=[
 let S={items:demo,entries:[],run:null,sprint:"Sprint 14",view:"track",cfg:{org:"",project:"",team:"",pat:""},manual:false};
 try{const x=JSON.parse(localStorage.getItem("st1")||"null");if(x)S=Object.assign(S,x)}catch(e){}
 S.manual=false;
+const demo2=[
+{id:201,title:"Push notifications",type:"User Story",sprint:"Sprint 7",est:14,state:"Active"},
+{id:202,title:"Register device token",type:"Task",parent:201,who:"Anna Jensen",sprint:"Sprint 7",est:6,state:"Active"},
+{id:203,title:"Notification settings screen",type:"Task",parent:201,who:"Anna Jensen",sprint:"Sprint 7",est:8,state:"New"},
+{id:204,title:"App crashes on Android 12",type:"Bug",who:"Ben Hansen",sprint:"Sprint 7",est:3,state:"Active"},
+{id:205,title:"Offline mode",type:"User Story",sprint:"Sprint 6",est:20,state:"Done"},
+{id:206,title:"Cache sync queue",type:"Task",parent:205,who:"Anna Jensen",sprint:"Sprint 6",est:10,state:"Done"}];
+if(!S.profiles||!S.profiles.length){S.profiles=[{id:1,name:"Website relaunch",org:"Demo",project:"Website relaunch",team:"Web Team"},{id:2,name:"Mobile app",org:"Demo",project:"Mobile app",team:"App Team"}];S.pid=1}
+if(S.pid==null&&S.profiles.length)S.pid=S.profiles[0].id;
 const save=()=>{try{localStorage.setItem("st1",JSON.stringify(S))}catch(e){}};
 const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const sprints=()=>[...new Set(S.items.map(i=>i.sprint))];
 const dur=ms=>{const s=Math.floor(ms/1000);return[Math.floor(s/3600),Math.floor(s%3600/60),s%60].map(n=>String(n).padStart(2,"0")).join(":")};
 const hrs=ms=>fm(Math.round(ms/6e4));
-const item=id=>S.items.find(i=>i.id==id);
+const item=id=>S.items.find(i=>i.id==id)||Object.values(S.cache||{}).flat().find(i=>i.id==id);
 const canLog=i=>/^(task|bug)$/i.test(i.type),isBug=i=>/^bug$/i.test(i.type),par=i=>i.parent&&!isBug(i)?S.items.find(x=>x.id==i.parent):null;
 const used=i=>(+i.done||0)*60+Math.round(logged(i.id)/6e4)-(S.pushed[i.id]||0);
 const lbl=i=>"#"+i.id+" "+i.title+(par(i)?" ‹ "+par(i).title:"")+(i.who?" – "+i.who:"");
@@ -218,7 +227,7 @@ function restoreBak(k){const b=baks()[k];if(b)loadSnap(b.d)}
 function profSave(){const c={org:$("#o").value.trim(),project:$("#p").value.trim(),team:$("#t").value.trim()};if(!c.org||!c.project)return note("Enter organization and project first.");
  const nm=$("#pn").value.trim()||c.project;S.profiles=S.profiles||[];const ex=S.profiles.find(p=>p.id==S.pid&&p.org==c.org&&p.project==c.project);if(ex)Object.assign(ex,c,{name:nm});else{const p=Object.assign({id:Date.now(),name:nm},c);S.profiles.push(p);S.pid=p.id}save();render();info("Project saved.")}
 function profDel(){S.profiles=(S.profiles||[]).filter(p=>p.id!=S.pid);S.pid=null;save();render()}
-function profSwitch(id){const p=(S.profiles||[]).find(x=>x.id==id);if(!p)return;S.cfg={org:p.org,project:p.project,team:p.team,pat:""};S.pid=p.id;S.syncErr={};save();render();if(typeof hasPat!=="undefined"&&hasPat)fetchAz(true)}
+function profSwitch(id){const p=(S.profiles||[]).find(x=>x.id==id);if(!p)return;const old=S.pid;S.cache=S.cache||{};if(old!=null&&old!==p.id)S.cache[old]=S.items;S.items=S.cache[p.id]||(p.id==1?demo.map(x=>({...x})):p.id==2?demo2.map(x=>({...x})):[]);delete S.cache[p.id];S.cfg={org:p.org,project:p.project,team:p.team,pat:""};S.pid=p.id;S.sprint=sprints()[0]||"";S.syncErr={};save();render()}
 function profBox(){const P=S.profiles||[];return`<div class="card"><b>Projects</b><div class="mu" style="margin:4px 0 8px">Save the organization, project and team below as a profile and switch between them. Your PAT is shared by all profiles on this computer.</div><div class="row2"><select id="pf" aria-label="Saved projects" onchange="profSwitch(this.value)"><option value="">${P.length?"Switch project…":"No saved projects yet"}</option>${P.map(p=>`<option value="${p.id}" ${p.id==S.pid?"selected":""}>${esc(p.name)} (${esc(p.org)}/${esc(p.project)})</option>`).join("")}</select><input id="pn" placeholder="Name for the settings below"><button onclick="profSave()">Save</button>${S.pid?`<button onclick="profDel()">Delete selected</button>`:""}</div></div>`}
 
 /* ---------- daily reminder ---------- */
