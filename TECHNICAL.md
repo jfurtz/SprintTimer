@@ -155,3 +155,8 @@ Notes belong to a task (`itemId`) or sit in the Inbox (no `itemId`). Fields: `id
 ## Notes: adding on the "On tasks" tab
 - On the "On tasks" tab the quick-note field has a required task picker (`#nkt`, remembered in `S.ntask`), so a new note lands on that task and stays visible. Without a task the user gets a message instead of the note silently going to the Inbox.
 - A `#123 text` note typed on the Inbox tab switches to "On tasks" so the note is seen where it ended up.
+
+## Work items per project
+- Each DevOps project (`org/project/team`, `pkey()`) has its own work items. `projSwap()` runs when switching profile or fetching: the current project's items are stashed in `S.cache[key]` and `S.items` becomes the new project's items (empty until fetched), so tasks from another project never show up. A project with no sprint or tasks therefore shows an empty list and the fetch message explains why.
+- `item(id)` also searches `S.cache`, so time already logged on a task in another project still shows its title; switching back restores the items at once.
+- Logged time is kept across projects (entries are not tied to a project). Unsynced time on another project's task is not pushed until that project is active.

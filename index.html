@@ -100,7 +100,7 @@ const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&g
 const sprints=()=>[...new Set(S.items.map(i=>i.sprint))];
 const dur=ms=>{const s=Math.floor(ms/1000);return[Math.floor(s/3600),Math.floor(s%3600/60),s%60].map(n=>String(n).padStart(2,"0")).join(":")};
 const hrs=ms=>fm(Math.round(ms/6e4));
-const item=id=>S.items.find(i=>i.id==id);
+const item=id=>S.items.find(i=>i.id==id)||Object.values(S.cache||{}).flat().find(i=>i.id==id);
 const canLog=i=>/^(task|bug)$/i.test(i.type),isBug=i=>/^bug$/i.test(i.type),par=i=>i.parent&&!isBug(i)?S.items.find(x=>x.id==i.parent):null;
 const used=i=>(+i.done||0)*60+Math.round(logged(i.id)/6e4)-(S.pushed[i.id]||0);
 const lbl=i=>"#"+i.id+" "+i.title+(par(i)?" ‹ "+par(i).title:"")+(i.who?" – "+i.who:"");
@@ -216,7 +216,9 @@ function restoreBak(k){const b=baks()[k];if(b)loadSnap(b.d)}
 function profSave(){const c={org:$("#o").value.trim(),project:$("#p").value.trim(),team:$("#t").value.trim()};if(!c.org||!c.project)return note("Enter organization and project first.");
  const nm=$("#pn").value.trim()||c.project;S.profiles=S.profiles||[];const ex=S.profiles.find(p=>p.id==S.pid&&p.org==c.org&&p.project==c.project);if(ex)Object.assign(ex,c,{name:nm});else{const p=Object.assign({id:Date.now(),name:nm},c);S.profiles.push(p);S.pid=p.id}save();render();info("Project saved.")}
 function profDel(){S.profiles=(S.profiles||[]).filter(p=>p.id!=S.pid);S.pid=null;save();render()}
-function profSwitch(id){const p=(S.profiles||[]).find(x=>x.id==id);if(!p)return;S.cfg={org:p.org,project:p.project,team:p.team,pat:""};S.pid=p.id;S.syncErr={};save();render();if(typeof hasPat!=="undefined"&&hasPat)fetchAz(true)}
+const pkey=c=>(c=c||S.cfg||{},[c.org,c.project,c.team].join("/"));
+function projSwap(from){const k=pkey();from=S.ipk||from||k;if(from!==k){S.cache=S.cache||{};S.cache[from]=S.items.filter(x=>x.az);S.items=S.cache[k]||[];S.pend=null;S.syncErr={}}S.ipk=k}
+function profSwitch(id){const p=(S.profiles||[]).find(x=>x.id==id);if(!p)return;const was=S.ipk||pkey();S.cfg={org:p.org,project:p.project,team:p.team,pat:""};S.pid=p.id;S.syncErr={};projSwap(was);save();render();if(typeof hasPat!=="undefined"&&hasPat)fetchAz(true)}
 function profBox(){const P=S.profiles||[];return`<div class="card"><b>Projects</b><div class="mu" style="margin:4px 0 8px">Save the organization, project and team below as a profile and switch between them. Your PAT is shared by all profiles on this computer.</div><div class="row2"><select id="pf" aria-label="Saved projects" onchange="profSwitch(this.value)"><option value="">${P.length?"Switch project…":"No saved projects yet"}</option>${P.map(p=>`<option value="${p.id}" ${p.id==S.pid?"selected":""}>${esc(p.name)} (${esc(p.org)}/${esc(p.project)})</option>`).join("")}</select><input id="pn" placeholder="Name for the settings below"><button onclick="profSave()">Save</button>${S.pid?`<button onclick="profDel()">Delete selected</button>`:""}</div></div>`}
 
 /* ---------- daily reminder ---------- */
@@ -483,8 +485,8 @@ function vConn(){const c=S.cfg;return`<h2>DevOps connection</h2>
 function imp(){try{const a=JSON.parse($("#j").value);if(!Array.isArray(a))throw 0;S.items=a.map(x=>({id:x.id,title:x.title,type:x.type||"Task",sprint:x.sprint||"No sprint",est:+x.est||0,state:x.state||"",parent:x.parent,who:x.who}));save();$("#m2").textContent="Imported "+a.length+" work items.";}catch(e){$("#m2").innerHTML='<span class="err">Invalid JSON</span>'}}
 function toast(){let t=$("#toast");if(!t){t=document.createElement("div");t.id="toast";t.className="card";t.style.cssText="position:fixed;right:16px;bottom:16px;z-index:60;margin:0;max-width:320px";document.body.appendChild(t)}t.style.display="block";return t}
 async function fetchAz(auto){
- const c=auto?S.cfg:S.cfg={org:$("#o").value.trim(),project:$("#p").value.trim(),team:$("#t").value.trim()||$("#p").value.trim()+" Team",pat:$("#k").value.trim()};save();if(c.pat){await api("/api/pat",{method:"POST",body:JSON.stringify({pat:c.pat})});hasPat=true;c.pat=""}
- const m=$("#m1")||toast(),H={"X-Token":TOKEN,"Content-Type":"application/json"},B=`/api/az/${encodeURIComponent(c.org)}`;
+ const was=S.ipk||pkey(),c=auto?S.cfg:S.cfg={org:$("#o").value.trim(),project:$("#p").value.trim(),team:$("#t").value.trim()||$("#p").value.trim()+" Team",pat:$("#k").value.trim()};save();if(c.pat){await api("/api/pat",{method:"POST",body:JSON.stringify({pat:c.pat})});hasPat=true;c.pat=""}
+ const m=$("#m1")||toast(),H={"X-Token":TOKEN,"Content-Type":"application/json"},B=`/api/az/${encodeURIComponent(c.org)}`;projSwap(was);
  const g=async u=>{const r=await fetch(u,{headers:H});if(!r.ok)throw new Error("HTTP "+r.status);return r.json()};
  try{m.textContent="Fetching iterations…";
   const all=(await g(`${B}/${encodeURIComponent(c.project)}/${encodeURIComponent(c.team)}/_apis/work/teamsettings/iterations?api-version=7.1`)).value,cur=all.find(x=>x.attributes?.timeFrame==="current")||all.filter(x=>x.attributes?.timeFrame!=="future").at(-1)||all.at(-1),nxt=cur?all[all.indexOf(cur)+1]:null,its=cur?[cur,nxt].filter(Boolean):[];if(!its.length)throw new Error("no sprint found");
@@ -496,7 +498,7 @@ async function fetchAz(auto){
    (await r.json()).value.forEach(w=>out.push({id:w.id,title:w.fields["System.Title"],type:w.fields["System.WorkItemType"],state:w.fields["System.State"],est:w.fields["Microsoft.VSTS.Scheduling.OriginalEstimate"]||0,az:1,done:w.fields["Microsoft.VSTS.Scheduling.CompletedWork"]||0,parent:w.fields["System.Parent"],who:(a=>a?a.displayName||a:"")(w.fields["System.AssignedTo"]),sprint:it.name}))}
   const have=new Set(out.map(x=>x.id)),miss=[...new Set(out.map(x=>x.parent).filter(p=>p&&!have.has(p)))];if(miss.length){m.textContent="Fetching user stories…";const r2=await fetch(`${B}/_apis/wit/workitemsbatch?api-version=7.1`,{method:"POST",headers:H,body:JSON.stringify({ids:miss.slice(0,200),fields:["System.Id","System.Title","System.WorkItemType","System.State","System.Parent"]})});(await r2.json()).value.forEach(w=>{const k=out.find(x=>x.parent==w.id);out.push({id:w.id,title:w.fields["System.Title"],type:w.fields["System.WorkItemType"],state:w.fields["System.State"],est:0,az:1,parent:w.fields["System.Parent"],sprint:k.sprint})})}
 m.textContent="Fetching statuses…";S.states=S.states||{};for(const t of [...new Set(out.filter(canLog).map(x=>x.type))]){try{const sr=await g(`${B}/${encodeURIComponent(c.project)}/_apis/wit/workitemtypes/${encodeURIComponent(t)}/states?api-version=7.1-preview.1`);S.states[t]=sr.value.map(x=>({name:x.name,category:x.category,color:x.color}))}catch(e){}}
-await detectMe();S.items=out.concat(S.items.filter(x=>!out.some(y=>y.id==x.id)&&S.entries.some(e=>String(e.itemId)==String(x.id))));S.sprint=its[0].name;save();{const tp=$("#top");if(tp)tp.innerHTML=topbar()}m.textContent="Fetched "+out.length+" work items from "+its.map(x=>x.name).join(" + ")+".";if(auto){render();setTimeout(()=>{const t=$("#toast");if(t)t.style.display="none"},3000)}
+await detectMe();S.cache=S.cache||{};S.items=out.concat(S.items.filter(x=>!out.some(y=>y.id==x.id)&&S.entries.some(e=>String(e.itemId)==String(x.id))));S.sprint=its[0].name;S.cache[pkey()]=S.items.filter(x=>x.az);save();{const tp=$("#top");if(tp)tp.innerHTML=topbar()}m.textContent="Fetched "+out.length+" work items from "+its.map(x=>x.name).join(" + ")+".";if(auto){render();setTimeout(()=>{const t=$("#toast");if(t)t.style.display="none"},3000)}
  }catch(e){m.innerHTML='<span class="err">Could not fetch ('+esc(e.message)+'). Check organization, project, team and that your PAT is valid.</span>'}}
 function theme(){S.theme=({"":"dark",dark:"light",light:""})[S.theme||""];save();applyTheme()}
 applyTheme();
