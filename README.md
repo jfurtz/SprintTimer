@@ -16,19 +16,24 @@ Most teams track time twice: once in a timer app and once in Azure DevOps. Sprin
 
 | | |
 |---|---|
-| **Timer** | Start/pause/stop a timer on any task, or add time manually in minutes. A clear running-timer bar shows on every page. |
+| **Timer** | Switch between **Timer** and **Add time** at the top of the page (Timer is the default; your task and description are kept when you switch). Start/pause/stop a timer, or add time by hand. A running-timer bar shows on every page. |
 | **Sprints** | Your sprint's tasks and bugs with budget (Original Estimate), logged, remaining and over-budget warnings. |
-| **Board** | New / Active / Closed columns. Drag a card to change its DevOps state. |
+| **Board** | New / Active / Closed columns, colour-coded (grey, blue, green). Drag a card to change its DevOps state. |
 | **Week** | Timesheet grid: edit hours per task per day. |
 | **Reports** | Per day, week or task, with totals. |
 | **Notes** | A quick Inbox plus notes attached to tasks, with done checkboxes. Type `#123 text` to attach. |
 | **Command palette** | `Ctrl+K` to find a task, start a timer, add time or jump to a page. |
-| **My tasks / Everyone** | Defaults to your own tasks (detected from your DevOps login); switch to see colleagues' tasks. |
+| **Top bar** | One place to pick the **project** (when you have saved several), the **sprint** and whose tasks to show: *My tasks* (default, detected from your DevOps login), *Everyone* or a colleague. |
+| **Several projects** | Save more than one DevOps project under Settings and switch between them. Each project keeps its own tasks; your logged time is kept. |
 | **Settings** | Toggle features on/off, pick a theme and accent colour, set up the DevOps connection. |
 
 Only Tasks and Bugs can have time logged (bugs standalone, without a parent).
 
 ## Screenshots
+
+**Add time** (switch with the tabs at the top of the Timer page):
+
+![Add time](docs/add-time.png)
 
 | Sprints | Board |
 |---|---|
