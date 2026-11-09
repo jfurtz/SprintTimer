@@ -143,3 +143,7 @@ Notes belong to a task (`itemId`) or sit in the Inbox (no `itemId`). Fields: `id
 ## Board status colours
 - Each card gets class `s0`/`s1`/`s2` from `grp(i)` (New/Active/Closed). CSS gives a 4px left border: grey `#a0a0a0`, blue `#009ccc`, green `#339933` - the same colours as the dots in the column headers.
 - A card with a running timer keeps a red border (`.kc.run`). The old yellow notes stripe (`.kc.hn`) was removed; notes are shown only by the note badge/icon on the card.
+
+## Central sprint selector
+- `sprintSel()` renders one Sprint dropdown in the top bar, left of the user scope selector (`topbar()`). It sets `S.sprint`, which Timer tiles, Sprints, Board and Reports (sprint period) all use.
+- The per-page sprint dropdowns on Sprints, Board and Reports were removed, so the sprint is chosen in one place only.
