@@ -125,3 +125,6 @@ The "Settings" nav item (view `settings`; the old `conn` view redirects there) h
 - **Reports:** period (sprint/week/last week/month/last 30 days/custom) and grouping (task/person/story/day) in `S.rp`; CSV export uses `rpEntries()`.
 - **Projects:** saved connection profiles in `S.profiles`/`S.pid` (`profSave/profSwitch/profDel`); switching refetches from DevOps.
 - **Daily reminder:** `remChk()`, settings `S.rt` (time) and `S.rh` (goal hours).
+
+## Notes (task-centred)
+Notes belong to a task (`itemId`) or sit in the Inbox (no `itemId`). Fields: `id`, `text`, `itemId`, `done`. One renderer (`nItem()`) is used everywhere: the Inbox / "On tasks" panel (`notes()`), the task block on Sprints and Board cards (`tnotes()`), and under logs on the Timer page (`rowNotes()`). Badges count open (not done) notes. Quick note: type `#123 text` to attach to task 123. In the command palette: "New note…" or Tab on a task > "Add note…".
