@@ -134,3 +134,12 @@ Notes belong to a task (`itemId`) or sit in the Inbox (no `itemId`). Fields: `id
 - `S.scope`: `"me"` (default), `"all"` or a person's name. `mine(i)`, `scopeOk(i)` filter tiles, search, palette and picker.
 - Unassigned tasks and tasks you have logged on are included by default (`S.incUn`, `S.incLogged`).
 - Logging on someone else's task asks for confirmation once per task (`S.askOther`, `S.okO`).
+
+## Timer / Add time switch
+- Segmented control `.seg` above the entry bar in `vTrack()`: "Timer" and "Add time" (`S.manual` false/true). Add time is disabled while a timer runs.
+- `S.manual` is reset to `false` on every start, so Timer is always the default.
+- `tmode(m)` switches mode and copies the description and the task text between the two forms (`desc`/`sel` <-> `md`/`mi`), so the chosen task is kept.
+
+## Board status colours
+- Each card gets class `s0`/`s1`/`s2` from `grp(i)` (New/Active/Closed). CSS gives a 4px left border: grey `#a0a0a0`, blue `#009ccc`, green `#339933` - the same colours as the dots in the column headers.
+- A card with a running timer keeps a red border (`.kc.run`). The old yellow notes stripe (`.kc.hn`) was removed; notes are shown only by the note badge/icon on the card.
