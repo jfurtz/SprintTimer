@@ -174,3 +174,7 @@ Notes belong to a task (`itemId`) or sit in the Inbox (no `itemId`). Fields: `id
 - PAT store (`stores` in server.js), same entry name `SprintTimeTracker:AzureDevOpsPAT` everywhere: Windows via `cred.ps1` (Credential Manager, same entry the PowerShell server uses, so both can be mixed); macOS via the `security` command (Keychain; the PAT is briefly visible in the process list while it is stored); Linux via `secret-tool` if present, otherwise a `0600` file `pat.secret` in the data folder. The PAT is cached in memory after the first read.
 - Environment variables for testing: `PORT`, `NO_OPEN=1` (or `--no-open`), `AZ_BASE` (replaces `https://dev.azure.com/`).
 - Not tested on real macOS/Windows by the author's tooling: the macOS Keychain and Windows Credential Manager code paths were written against their documented command lines.
+
+## Compact (mini) mode
+- `MINI()` is true when the window is at most 560px wide or 340px high. `render()` then adds class `mini` to `<body>` and always renders the Timer page in a reduced form: Timer / Add time tabs, the timer bar (large clock on top), the quick-start chips and today's total. Sidebar, top bar, tiles, history, notes and the running-timer bar are hidden.
+- A `resize` listener re-renders only when the mode flips, so text being typed is not lost while the window is dragged. `S.view` is not changed, so widening the window returns to the page you were on.

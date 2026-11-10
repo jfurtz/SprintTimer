@@ -17,6 +17,7 @@ Most teams track time twice: once in a timer app and once in Azure DevOps. Sprin
 | | |
 |---|---|
 | **Timer** | Switch between **Timer** and **Add time** at the top of the page (Timer is the default; your task and description are kept when you switch). Start/pause/stop a timer, or add time by hand. A running-timer bar shows on every page. |
+| **Compact mode** | Make the browser window small (or narrow) and only the timer is shown: clock, task, start/stop and your pinned tasks. Widen it again to get the full app back. |
 | **Sprints** | Your sprint's tasks and bugs with budget (Original Estimate), logged, remaining and over-budget warnings. |
 | **Board** | New / Active / Closed columns, colour-coded (grey, blue, green). Drag a card to change its DevOps state. |
 | **Week** | Timesheet grid: edit hours per task per day. |
