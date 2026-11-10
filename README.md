@@ -36,6 +36,10 @@ Only Tasks and Bugs can have time logged (bugs standalone, without a parent).
 
 ![Add time](docs/add-time.png)
 
+**Compact mode** (make the window small and only the timer is shown):
+
+<img src="docs/compact.png" alt="Compact mode" width="320">
+
 | Sprints | Board |
 |---|---|
 | ![Sprints](docs/sprints.png) | ![Board](docs/board.png) |
