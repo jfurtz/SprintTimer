@@ -166,3 +166,11 @@ Notes belong to a task (`itemId`) or sit in the Inbox (no `itemId`). Fields: `id
 
 ## Demo build (demo/timetracker.html)
 - The demo ships with two sample projects, "Website relaunch" and "Mobile app" (`demo`, `demo2`, preset in `S.profiles`), so the project switcher in the top bar can be tried without DevOps. Switching stashes the current items in `S.cache`; logged time is kept.
+
+## Cross-platform server (server.js)
+- `server.js` (Node 18+, no packages) replaces the PowerShell server on every platform; `server.ps1` stays as a Windows fallback used by `Start.cmd` when Node is not installed. `Start.command` starts it on macOS.
+- Same API as before: `/` (index.html with `__TOKEN__` replaced), `/api/state` (GET/PUT), `/api/pat` (POST/DELETE, returns `{has}`), `/api/az/*` (GET/POST/PATCH proxy to `https://dev.azure.com/`, Basic auth with the stored PAT). Binds to 127.0.0.1 only. Every `/api` call needs the per-start `X-Token`; requests whose Host header is not localhost/127.0.0.1 are rejected (DNS-rebinding protection).
+- Data folder: Windows `%APPDATA%\SprintTimeTracker` (unchanged), macOS `~/Library/Application Support/SprintTimeTracker`, Linux `$XDG_CONFIG_HOME` or `~/.config/SprintTimeTracker`. `data.json` is written atomically (tmp file + rename).
+- PAT store (`stores` in server.js), same entry name `SprintTimeTracker:AzureDevOpsPAT` everywhere: Windows via `cred.ps1` (Credential Manager, same entry the PowerShell server uses, so both can be mixed); macOS via the `security` command (Keychain; the PAT is briefly visible in the process list while it is stored); Linux via `secret-tool` if present, otherwise a `0600` file `pat.secret` in the data folder. The PAT is cached in memory after the first read.
+- Environment variables for testing: `PORT`, `NO_OPEN=1` (or `--no-open`), `AZ_BASE` (replaces `https://dev.azure.com/`).
+- Not tested on real macOS/Windows by the author's tooling: the macOS Keychain and Windows Credential Manager code paths were written against their documented command lines.
